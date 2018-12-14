@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-prettier",
+    "tslint-react-a11y"
+  ],
+  "rules": {
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "interface-name": false,
+    "member-ordering": false,
+    "no-console": false,
+    "member-access": [true, "no-public"],
+    "jsx-no-lambda": false
+  }
+}

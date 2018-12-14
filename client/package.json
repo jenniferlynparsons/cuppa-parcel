@@ -1,0 +1,110 @@
+{
+  "name": "succinct-react-starter",
+  "version": "1.0.0",
+  "description": "A simple React starter kit inspired by Brian Holt",
+  "main": "App.js",
+  "scripts": {
+    "format": "prettier --write \"src/**/*.{js, jsx, css, json} \"",
+    "test": "jest --silent",
+    "testu": "jest --silent -u",
+    "testw": "jest --silent --watch",
+    "testc": "jest --silent --coverage",
+    "lint": "eslint \"src/**/*.{js, jsx}\"",
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html --out-dir dist --public-url ./",
+    "buildgh": "parcel build src/index.html --out-dir docs --public-url ./"
+  },
+  "proxy": "http://localhost:5000",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jenniferlynparsons/succinct-react-starter.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Jennifer Lyn Parsons",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "bugs": {
+    "url": "https://github.com/jenniferlynparsons/succinct-react-starter/issues"
+  },
+  "homepage": "https://github.com/jenniferlynparsons/succinct-react-starter#readme",
+  "devDependencies": {
+    "@types/reach__router": "^1.2.2",
+    "@types/react": "^16.7.13",
+    "@types/react-dom": "^16.0.9",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "jest": "^23.6.0",
+    "parcel-bundler": "^1.10.3",
+    "prettier": "^1.14.3",
+    "react-test-renderer": "^16.6.0",
+    "redux-devtools-extension": "^2.13.5",
+    "sass": "^1.14.3",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "3.1.3"
+  },
+  "dependencies": {
+    "@reach/router": "^1.2.1",
+    "@types/enzyme": "^3.1.15",
+    "@types/enzyme-adapter-react-16": "^1.0.3",
+    "@types/jest": "^23.3.9",
+    "@types/react-redux": "^6.0.9",
+    "@types/redux": "^3.6.0",
+    "@types/redux-mock-store": "^1.0.0",
+    "@types/redux-thunk": "^2.1.0",
+    "@types/uuid": "^3.4.4",
+    "axios": "^0.18.0",
+    "babel-jest": "^23.6.0",
+    "babel-plugin-dynamic-import-node": "^2.2.0",
+    "bulma": "^0.7.2",
+    "emotion": "^9.2.12",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
+    "enzyme-to-json": "^3.3.4",
+    "identity-obj-proxy": "^3.0.0",
+    "classnames": "^2.2.6",
+    "jwt-decode": "^2.2.0",
+    "petfinder-client": "0.0.3",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-redux": "^5.1.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "ts-jest": "^23.10.4",
+    "tslint-react-a11y": "^1.0.0",
+    "uuid": "^3.3.2"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/src/enzyme.js",
+    "moduleNameMapper": {
+      "\\.(css|less|scss)$": "identity-obj-proxy"
+    },
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest",
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.svg$": "<rootDir>/src/svgTransform.js"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "preset": "ts-jest",
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false
+      }
+    }
+  }
+}

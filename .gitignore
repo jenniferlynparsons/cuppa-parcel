@@ -61,3 +61,7 @@ typings/
 .next
 
 config/
+.cache/
+client/dist/*
+client/package-lock.json
+package-lock.json
