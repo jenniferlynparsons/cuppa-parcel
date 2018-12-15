@@ -60,7 +60,7 @@ typings/
 # next.js build output
 .next
 
-config/
+config/keys.js
 .cache/
 client/dist/*
 client/package-lock.json
