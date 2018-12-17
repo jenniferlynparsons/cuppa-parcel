@@ -2,10 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const proxy = require('http-proxy-middleware')
+const Bundler = require('parcel-bundler')
 
 const users = require("./routes/api/users");
 
-const app = express();
+let bundler = new Bundler('./client/src/index.html')
+let app = express();
 
 // Bodyparser middleware
 app.use(
@@ -34,8 +37,17 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // Routes
-app.use("/api/users", users);
+// app.use("/api/users", users);
 
-const port = process.env.PORT || 5000;
+app.use(
+  '/api',
+  proxy({
+    target: 'http://localhost:5000'
+  })
+)
 
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+// app.use(bundler.middleware())
+
+const port = process.env.PORT || 1234;
+
+app.listen(Number(port), () => console.log(`Server up and running on port ${port} !`));
