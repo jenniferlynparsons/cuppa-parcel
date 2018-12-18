@@ -39,15 +39,20 @@ require("./config/passport")(passport);
 // Routes
 // app.use("/api/users", users);
 
-app.use(
-  '/api',
-  proxy({
-    target: 'http://localhost:5000'
-  })
-)
+// app.use(
+//   '/api',
+//   proxy({
+//     target: 'http://localhost:5000'
+//   })
+// )
 
-// app.use(bundler.middleware())
+let bundlerMiddleware = bundler.middleware();
 
-const port = process.env.PORT || 1234;
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api')) next();
+  else bundlerMiddleware(req, res, next);
+})
 
-app.listen(Number(port), () => console.log(`Server up and running on port ${port} !`));
+// const port = process.env.PORT || 1234;
+
+// app.listen(Number(port), () => console.log(`Server up and running on port ${port} !`));
