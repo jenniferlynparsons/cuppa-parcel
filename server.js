@@ -1,3 +1,4 @@
+const Bundler = require('parcel-bundler');
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -6,6 +7,14 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 
 const app = express();
+
+const file = './client/src/index.html';
+const options = {};
+
+const bundler = new Bundler(file, options);
+
+
+app.use(bundler.middleware());
 
 // Bodyparser middleware
 app.use(
@@ -35,6 +44,7 @@ require("./config/passport")(passport);
 
 // Routes
 app.use("/api/users", users);
+
 
 const port = process.env.PORT || 5000;
 
