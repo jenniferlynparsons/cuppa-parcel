@@ -63,5 +63,6 @@ typings/
 config/keys.js
 .cache/
 client/dist/*
+dist/*
 client/package-lock.json
 package-lock.json
