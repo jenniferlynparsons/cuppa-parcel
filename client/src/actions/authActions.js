@@ -1,6 +1,7 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
+import { RSAA } from "redux-api-middleware";
 
 import {
   GET_ERRORS,
@@ -8,6 +9,44 @@ import {
   SET_CURRENT_USER,
   USER_LOADING
 } from "./types";
+
+const API_SERVER = "http://localhost:5000";
+
+export function loginAction(userData) {
+  return {
+    [RSAA]: {
+      endpoint: `${API_SERVER}/api/users/login`,
+      method: "POST",
+      types: [
+        "REQUEST",
+        {
+          type: "SUCCESS",
+          payload: async (action, state, res) => {
+            res = await res.json();
+            // Set token to localStorage
+            console.log(JSON.stringify(res));
+            let { token } = res;
+            localStorage.setItem("jwtToken", token);
+            // Set token to Auth header
+            setAuthToken(token);
+            // Decode token to get user data
+            const decoded = jwt_decode(token);
+            // Set current user
+            return dispatch => {
+              return {
+                type: SET_CURRENT_USER,
+                payload: decoded
+              };
+            };
+          }
+        },
+        "FAILURE"
+      ],
+      body: JSON.stringify(userData),
+      headers: { "Content-Type": "application/json" }
+    }
+  };
+}
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
