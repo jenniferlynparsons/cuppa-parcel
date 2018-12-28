@@ -50,17 +50,31 @@ export function loginAction(userData) {
 }
 
 // Register User
-export const registerUser = (userData, history) => dispatch => {
-  axios
-    .post("/api/users/register", userData)
-    .then(res => history.push("/login"))
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
-};
+export function registerUser(userData, history) {
+  return {
+    [RSAA]: {
+      endpoint: `${API_SERVER}/api/users/register`,
+      method: "POST",
+      types: [
+        "REQUEST",
+        {
+          type: "SUCCESS",
+          payload: async (action, state, res) => {
+            history.push("/login");
+          }
+        },
+        {
+          type: GET_ERRORS,
+          payload: async (action, state, res) => {
+            res.response.data;
+          }
+        }
+      ],
+      body: JSON.stringify(userData),
+      headers: { "Content-Type": "application/json" }
+    }
+  };
+}
 
 // Set logged in user
 export const setCurrentUser = decoded => {
