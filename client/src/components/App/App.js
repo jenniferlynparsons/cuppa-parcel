@@ -5,12 +5,21 @@ import setAuthToken from "../../utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "../../actions/authActions";
 import { Provider } from "react-redux";
 import store from "../../store";
-import Navbar from "../Layout/Navbar";
-import Landing from "../Layout/Landing";
-import Register from "../auth/Register";
-import Login from "../auth/Login";
-import PrivateRoute from "../PrivateRoute/PrivateRoute";
-import Dashboard from "../dashboard/Dashboard";
+// Routes
+import NavBar from "../Template/NavBar";
+import Footer from "../Template/Footer";
+import Landing from "../Landing";
+import Register from "../Auth/Register";
+import Login from "../Auth/Login";
+import PrivateRoute from "../Auth/PrivateRoute/PrivateRoute";
+import Dashboard from "../Dashboard";
+import TeaEditor from "../Tea/TeaEditor";
+import TeaList from "../Tea/TeaList";
+import TeaDetails from "../Tea/TeaDetails";
+// Styles
+import "../../../node_modules/bulma/bulma.sass";
+import "../../common_styles/global.scss";
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -35,14 +44,23 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
-            <Navbar />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
+          <div>
+            <NavBar />
+            <section className="section">
+              <div className="App">
+                <Route exact path="/" component={Landing} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" component={Login} />
+                {/* <Route path="/tea-collection" component={TeaList} /> */}
+                <Route exact path="/new-tea" component={TeaEditor} />
+                {/* <Route exact path="/edit-tea/:id" component={TeaEditor} /> */}
+                {/* <Route exact path="/tea/:id" component={TeaDetails} /> */}
+                <Switch>
+                  <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                </Switch>
+              </div>
+            </section>
+            <Footer />
           </div>
         </Router>
       </Provider>
