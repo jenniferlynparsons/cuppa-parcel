@@ -19,7 +19,7 @@ export const TeaDetails: SFC<TeaDetailsProps> = props => {
           {props.tea.servings}
         </li>
       </ul>
-      <Link to={"/edit-tea/" + props.tea.id} className="button">
+      <Link to={"/update-tea/" + props.tea.id} className="button">
         Edit
       </Link>
     </div>

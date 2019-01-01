@@ -82,10 +82,11 @@ router.get('/tea', (req, res) => {
 
 router.get('/teasList', function(req, res) {
   Tea.find({}, function(err, teas) {
-    var teaMap = {};
-
+    var teaMap = [];
+    var index = 0
     teas.forEach(function(tea) {
-      teaMap[tea._id] = tea;
+      teaMap[index] = tea;
+      index++;
     });
 
     res.send(teaMap);

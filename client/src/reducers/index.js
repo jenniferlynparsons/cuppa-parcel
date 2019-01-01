@@ -8,5 +8,5 @@ export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
   teas: teaReducers,
-  types: typesReducer
+  teaTypes: typesReducer
 });
