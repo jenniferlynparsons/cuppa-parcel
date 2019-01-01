@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React from "react";
 import uuidv4 from "uuid/v4";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Link } from "@reach/router";
 import { TeaEditorProps, TeaEditorState, Errors } from "../../../interfaces";
@@ -109,8 +110,11 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
   };
 
   componentDidMount() {
-    if (this.props.id) {
-      const filterTeas = this.props.teas.filter(t => t.id === this.props.id);
+    console.log(this.props.match.params.id);
+    if (this.props.match.params.id) {
+      const filterTeas = this.props.teas.filter(
+        t => t.id === this.props.match.params.id
+      );
       const currentTea = { ...filterTeas[0] };
       this.setState({ ...currentTea, edit: true });
     }
@@ -254,7 +258,9 @@ const mapDispatchToProps = (dispatch: any) => ({
   }
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TeaEditor);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(TeaEditor)
+);
