@@ -15,20 +15,44 @@ interface DeleteTea {
   payload: Tea;
 }
 
-export const deleteTea = (tea: Tea): DeleteTea => ({
-  type: "DELETE_TEA",
-  payload: tea
-});
+// export const deleteTea = (tea: Tea): DeleteTea => ({
+//   type: "DELETE_TEA",
+//   payload: tea
+// });
+
+export function deleteTea(tea) {
+  return {
+    [RSAA]: {
+      endpoint: `${API_SERVER}/api/teas/delete-tea`,
+      method: "DELETE",
+      types: [
+        "REQUEST",
+        {
+          type: "DELETE_TEA",
+          payload: async (action, state, res) => {
+            res = await res.json();
+            console.log(JSON.stringify(res));
+
+            return res;
+          }
+        },
+        {
+          type: "GET_ERRORS",
+          payload: async (action, state, res) => {
+            res.response.data;
+          }
+        }
+      ],
+      body: JSON.stringify(tea),
+      headers: { "Content-Type": "application/json" }
+    }
+  };
+}
 
 interface EditTea {
   type: "EDIT_TEA";
   payload: Tea;
 }
-
-// export const editTea = (tea: Tea): EditTea => ({
-//   type: "EDIT_TEA",
-//   payload: tea
-// });
 
 export function editTea(tea) {
   return {
