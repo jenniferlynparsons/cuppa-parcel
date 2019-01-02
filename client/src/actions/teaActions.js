@@ -15,11 +15,6 @@ interface DeleteTea {
   payload: Tea;
 }
 
-// export const deleteTea = (tea: Tea): DeleteTea => ({
-//   type: "DELETE_TEA",
-//   payload: tea
-// });
-
 export function deleteTea(tea) {
   return {
     [RSAA]: {
@@ -31,7 +26,7 @@ export function deleteTea(tea) {
           type: "DELETE_TEA",
           payload: async (action, state, res) => {
             res = await res.json();
-            console.log(JSON.stringify(res));
+            // console.log(JSON.stringify(res));
 
             return res;
           }
@@ -65,7 +60,7 @@ export function editTea(tea) {
           type: "EDIT_TEA",
           payload: async (action, state, res) => {
             res = await res.json();
-            console.log(JSON.stringify(res));
+            // console.log(JSON.stringify(res));
 
             return res;
           }
@@ -95,7 +90,7 @@ export function addTea(tea) {
           type: "ADD_TEA",
           payload: async (action, state, res) => {
             res = await res.json();
-            console.log(JSON.stringify(res));
+            // console.log(JSON.stringify(res));
 
             return res;
           }
@@ -125,7 +120,7 @@ export function getTeas() {
           type: "GET_TEAS",
           payload: async (action, state, res) => {
             res = await res.json();
-            console.log(res);
+            // console.log(res);
 
             return res;
           }

@@ -8,7 +8,6 @@ import { TeaDetails } from "./TeaDetails";
 
 export class TeaDetailsContainer extends React.Component<TeaDetailsProps, {}> {
   render() {
-    console.log(this.props);
     return <TeaDetails tea={this.props.tea} />;
   }
 }

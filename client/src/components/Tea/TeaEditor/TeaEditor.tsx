@@ -3,9 +3,9 @@ import React from "react";
 import uuidv4 from "uuid/v4";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Link } from "@reach/router";
-import { TeaEditorProps, TeaEditorState, Errors } from "../../../interfaces";
-import { addTea, editTea } from "../../../actions/teaActions";
+import { Link } from "react-router-dom";
+import { TeaEditorProps, Errors } from "../../../interfaces";
+import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 
 export class TeaEditor extends React.Component<TeaEditorProps, {}> {
   state = {
@@ -110,12 +110,16 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
   };
 
   componentDidMount() {
-    console.log(this.props.match.params.id);
-    if (this.props.match.params.id) {
+    this.props.getTeaList();
+  }
+
+  componentWillReceiveProps(teaProps) {
+    if (teaProps.teas) {
       const filterTeas = this.props.teas.filter(
-        t => t.id === this.props.match.params.id
+        t => t.id === teaProps.match.params.id
       );
       const currentTea = { ...filterTeas[0] };
+      console.log(currentTea);
       this.setState({ ...currentTea, edit: true });
     }
   }
@@ -243,10 +247,19 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
   }
 }
 
-const mapStateToProps = (state: TeaEditorState) => ({
-  teas: state.teas,
-  teaTypes: state.teaTypes
-});
+// const mapStateToProps = (state: TeaEditorState) => ({
+//   teas: state.teas,
+//   teaTypes: state.teaTypes
+// });
+
+function mapStateToProps(state) {
+  // console.log(state);
+  // console.log(state.teas);
+  return {
+    teas: state.teas,
+    teaTypes: state.teaTypes
+  };
+}
 
 const mapDispatchToProps = (dispatch: any) => ({
   handleSubmit: (tea: any) => {
@@ -255,6 +268,9 @@ const mapDispatchToProps = (dispatch: any) => ({
     } else {
       dispatch(addTea(tea));
     }
+  },
+  getTeaList: () => {
+    dispatch(getTeas());
   }
 });
 

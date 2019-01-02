@@ -1,4 +1,4 @@
-import { RouteComponentProps } from "@reach/router";
+// import { RouteComponentProps } from "@reach/router";
 
 export interface Tea {
   id: string;

@@ -52,7 +52,7 @@ describe("components", () => {
     it("should call handleDelete if delete is clicked", () => {
       const { enzymeWrapper } = setup();
       const input = enzymeWrapper.find("button").first();
-      console.log(enzymeWrapper);
+      // console.log(enzymeWrapper);
       expect(input.length).toBe(1);
       input.simulate("click");
       expect(enzymeWrapper.handleDeleteClick).toHaveBeenCalled();
