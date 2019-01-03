@@ -6,6 +6,14 @@ import { Link } from "react-router-dom";
 export const TeaDetails: SFC<TeaDetailsProps> = props => {
   return (
     <div className="container content">
+      {props.flash ? (
+        <div className="notification is-success">
+          <button className="delete" onClick={e => props.onClick(e, false)} />
+          {props.tea.name} has been succesfully updated.
+        </div>
+      ) : (
+        ""
+      )}
       <h1>{props.tea.name}</h1>
       <ul>
         <li>
@@ -19,7 +27,11 @@ export const TeaDetails: SFC<TeaDetailsProps> = props => {
           {props.tea.servings}
         </li>
       </ul>
-      <Link to={"/update-tea/" + props.tea.id} className="button">
+      <Link
+        to={"/update-tea/" + props.tea.id}
+        className="button"
+        onClick={e => props.onClick(e, false)}
+      >
         Edit
       </Link>
     </div>

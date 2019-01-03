@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { TeaEditorProps, Errors } from "../../../interfaces";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
+import { editTeaFlash } from "../../../actions/flashActions";
 
 export class TeaEditor extends React.Component<TeaEditorProps, {}> {
   state = {
@@ -90,22 +91,27 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
     event.preventDefault();
     if ((errors.servings || errors.name) === false) {
       this.props.handleSubmit(this.state);
-      this.setState({
-        flash: {
-          name: this.state.name,
-          id: this.state.id
-        },
-        touched: {
-          name: false,
-          servings: false
-        },
-        id: "",
-        name: "",
-        brand: "",
-        teaType: "",
-        servings: "",
-        edit: false
-      });
+      if (this.state.edit === true) {
+        this.props.updateFlash(true);
+        this.props.history.push("/tea/" + this.state.id);
+      } else {
+        this.setState({
+          flash: {
+            name: this.state.name,
+            id: this.state.id
+          },
+          touched: {
+            name: false,
+            servings: false
+          },
+          id: "",
+          name: "",
+          brand: "",
+          teaType: "",
+          servings: "",
+          edit: false
+        });
+      }
     }
   };
 
@@ -114,13 +120,15 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
   }
 
   componentWillReceiveProps(teaProps) {
-    if (teaProps.teas) {
-      const filterTeas = this.props.teas.filter(
-        t => t.id === teaProps.match.params.id
-      );
-      const currentTea = { ...filterTeas[0] };
-      console.log(currentTea);
+    const filterTeas = this.props.teas.filter(
+      t => t.id === teaProps.match.params.id
+    );
+    const currentTea = { ...filterTeas[0] };
+    console.log(currentTea);
+    if (currentTea.id) {
       this.setState({ ...currentTea, edit: true });
+    } else {
+      this.setState({ edit: false });
     }
   }
 
@@ -247,19 +255,10 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
   }
 }
 
-// const mapStateToProps = (state: TeaEditorState) => ({
-//   teas: state.teas,
-//   teaTypes: state.teaTypes
-// });
-
-function mapStateToProps(state) {
-  // console.log(state);
-  // console.log(state.teas);
-  return {
-    teas: state.teas,
-    teaTypes: state.teaTypes
-  };
-}
+const mapStateToProps = (state: TeaEditorState) => ({
+  teas: state.teas,
+  teaTypes: state.teaTypes
+});
 
 const mapDispatchToProps = (dispatch: any) => ({
   handleSubmit: (tea: any) => {
@@ -271,6 +270,9 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   getTeaList: () => {
     dispatch(getTeas());
+  },
+  updateFlash: status => {
+    dispatch(editTeaFlash(status));
   }
 });
 

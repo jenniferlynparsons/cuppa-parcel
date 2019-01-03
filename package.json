@@ -27,6 +27,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "http-proxy-middleware": "^0.19.1",
+    "immutable": "^4.0.0-rc.12",
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.3.16",

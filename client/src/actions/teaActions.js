@@ -60,7 +60,6 @@ export function editTea(tea) {
           type: "EDIT_TEA",
           payload: async (action, state, res) => {
             res = await res.json();
-            // console.log(JSON.stringify(res));
 
             return res;
           }
