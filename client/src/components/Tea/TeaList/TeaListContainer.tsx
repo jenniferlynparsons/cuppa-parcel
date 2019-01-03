@@ -1,13 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { TeaListProps, AppState, Tea } from "../../../interfaces";
-import { deleteTea } from "../../../actions/teaActions";
+import { deleteTea, getTeas } from "../../../actions/teaActions";
 import TeaList from "./TeaList";
 
 export class TeaListContainer extends React.Component<TeaListProps> {
   handleDeleteClick = (tea: Tea) => {
     this.props.handleDelete(tea);
   };
+
+  componentDidMount() {
+    this.props.getTeaList();
+  }
 
   render() {
     return (
@@ -28,6 +32,9 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch: any) => ({
   handleDelete: (tea: any) => {
     dispatch(deleteTea(tea));
+  },
+  getTeaList: () => {
+    dispatch(getTeas());
   }
 });
 

@@ -25,7 +25,7 @@ export function loginAction(userData) {
           payload: async (action, state, res) => {
             res = await res.json();
             // Set token to localStorage
-            console.log(JSON.stringify(res));
+            // console.log(JSON.stringify(res));
             let { token } = res;
             localStorage.setItem("jwtToken", token);
             // Set token to Auth header

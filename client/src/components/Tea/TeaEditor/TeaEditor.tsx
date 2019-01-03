@@ -1,10 +1,12 @@
 /* eslint-disable no-console */
 import React from "react";
 import uuidv4 from "uuid/v4";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Link } from "@reach/router";
-import { TeaEditorProps, TeaEditorState, Errors } from "../../../interfaces";
-import { addTea, editTea } from "../../../actions/teaActions";
+import { Link } from "react-router-dom";
+import { TeaEditorProps, Errors } from "../../../interfaces";
+import { addTea, editTea, getTeas } from "../../../actions/teaActions";
+import { editTeaFlash } from "../../../actions/flashActions";
 
 export class TeaEditor extends React.Component<TeaEditorProps, {}> {
   state = {
@@ -89,30 +91,44 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
     event.preventDefault();
     if ((errors.servings || errors.name) === false) {
       this.props.handleSubmit(this.state);
-      this.setState({
-        flash: {
-          name: this.state.name,
-          id: this.state.id
-        },
-        touched: {
-          name: false,
-          servings: false
-        },
-        id: "",
-        name: "",
-        brand: "",
-        teaType: "",
-        servings: "",
-        edit: false
-      });
+      if (this.state.edit === true) {
+        this.props.updateFlash(true);
+        this.props.history.push("/tea/" + this.state.id);
+      } else {
+        this.setState({
+          flash: {
+            name: this.state.name,
+            id: this.state.id
+          },
+          touched: {
+            name: false,
+            servings: false
+          },
+          id: "",
+          name: "",
+          brand: "",
+          teaType: "",
+          servings: "",
+          edit: false
+        });
+      }
     }
   };
 
   componentDidMount() {
-    if (this.props.id) {
-      const filterTeas = this.props.teas.filter(t => t.id === this.props.id);
-      const currentTea = { ...filterTeas[0] };
+    this.props.getTeaList();
+  }
+
+  componentWillReceiveProps(teaProps) {
+    const filterTeas = this.props.teas.filter(
+      t => t.id === teaProps.match.params.id
+    );
+    const currentTea = { ...filterTeas[0] };
+    console.log(currentTea);
+    if (currentTea.id) {
       this.setState({ ...currentTea, edit: true });
+    } else {
+      this.setState({ edit: false });
     }
   }
 
@@ -251,10 +267,18 @@ const mapDispatchToProps = (dispatch: any) => ({
     } else {
       dispatch(addTea(tea));
     }
+  },
+  getTeaList: () => {
+    dispatch(getTeas());
+  },
+  updateFlash: status => {
+    dispatch(editTeaFlash(status));
   }
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TeaEditor);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(TeaEditor)
+);

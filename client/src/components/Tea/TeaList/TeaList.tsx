@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "@reach/router";
+import { Link } from "react-router-dom";
 import { TeaListProps, Tea } from "../../../interfaces";
 
 export class TeaList extends React.Component<TeaListProps, {}> {
@@ -32,7 +32,7 @@ export class TeaList extends React.Component<TeaListProps, {}> {
                   <td>{tea.teaType}</td>
                   <td>{tea.servings}</td>
                   <td>
-                    <a href={"/edit-tea/" + tea.id}>Edit</a>
+                    <Link to={"/update-tea/" + tea.id}>Edit</Link>
                   </td>
                   <td>
                     <button

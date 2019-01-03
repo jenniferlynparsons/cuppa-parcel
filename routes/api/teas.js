@@ -43,7 +43,7 @@ router.put("/update-tea", (req, res) => {
 
   Tea.findOneAndUpdate({id: req.body.id}, req.body, {new: true}, function(err, doc){
     if (err) return res.send(500, { error: err });
-    return res.json({ message: 'Tea updated!' });
+    return res.json(doc);
   });
 
 })
@@ -82,10 +82,11 @@ router.get('/tea', (req, res) => {
 
 router.get('/teasList', function(req, res) {
   Tea.find({}, function(err, teas) {
-    var teaMap = {};
-
+    var teaMap = [];
+    var index = 0
     teas.forEach(function(tea) {
-      teaMap[tea._id] = tea;
+      teaMap[index] = tea;
+      index++;
     });
 
     res.send(teaMap);

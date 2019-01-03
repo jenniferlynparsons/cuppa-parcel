@@ -1,4 +1,4 @@
-import { RouteComponentProps } from "@reach/router";
+// import { RouteComponentProps } from "@reach/router";
 
 export interface Tea {
   id: string;
@@ -6,6 +6,7 @@ export interface Tea {
   brand: string;
   teaType: string;
   servings: number;
+  updated: boolean;
 }
 
 export type TeaTypes = string[];

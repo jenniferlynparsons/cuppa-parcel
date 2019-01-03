@@ -51,10 +51,10 @@ class App extends Component {
                 <Route exact path="/" component={Landing} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
-                {/* <Route path="/tea-collection" component={TeaList} /> */}
+                <Route path="/tea-collection" component={TeaList} />
                 <Route exact path="/new-tea" component={TeaEditor} />
-                {/* <Route exact path="/edit-tea/:id" component={TeaEditor} /> */}
-                {/* <Route exact path="/tea/:id" component={TeaDetails} /> */}
+                <Route exact path="/update-tea/:id" component={TeaEditor} />
+                <Route exact path="/tea/:id" component={TeaDetails} />
                 <Switch>
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 </Switch>

@@ -3,10 +3,12 @@ import authReducer from "./authReducers";
 import errorReducer from "./errorReducers";
 import teaReducers from "./teaReducers";
 import typesReducer from "./typesReducer";
+import flashReducer from "./flashReducer";
 
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
   teas: teaReducers,
-  types: typesReducer
+  teaTypes: typesReducer,
+  flash: flashReducer
 });
