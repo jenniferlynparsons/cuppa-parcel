@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser, getCurrentUser } from "../../actions/authActions";
 
 class Dashboard extends Component {
   onLogoutClick = e => {
@@ -10,24 +10,22 @@ class Dashboard extends Component {
 
   render() {
     const { user } = this.props.auth;
-
+    console.log(this.props);
     return (
-      <div style={{ height: "75vh" }} className="container valign-wrapper">
-        <div className="row">
-          <div className="landing-copy col s12 center-align">
-            <h4>
-              <b>Hey there,</b> {user.name.split(" ")[0]}
-              <p className="flow-text grey-text text-darken-1">
-                You are logged into a full-stack{" "}
-                <span style={{ fontFamily: "monospace" }}>MERN</span> app 👏
-              </p>
-            </h4>
-            <button
-              onClick={this.onLogoutClick}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-            >
-              Logout
-            </button>
+      <div className="container content">
+        <h1>Hey there, {user.name.split(" ")[0]}</h1>
+        <div className="columns">
+          <div className="column is-two-thirds">
+            <h2>Your stats</h2>
+            <p>You currently have XX teas in your collection</p>
+          </div>
+          <div className="column is-one-third">
+            <p>You are logged in as {user.email}</p>
+            <p>
+              <button className="button" onClick={this.onLogoutClick}>
+                Logout
+              </button>
+            </p>
           </div>
         </div>
       </div>
