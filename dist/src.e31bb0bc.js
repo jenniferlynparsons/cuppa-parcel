@@ -42284,7 +42284,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var initialState = {};
 var middleware = [_reduxApiMiddleware.apiMiddleware, _reduxThunk.default];
-var store = (0, _redux.createStore)(_reducers.default, initialState, (0, _redux.compose)(_redux.applyMiddleware.apply(void 0, middleware), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+var store = (0, _redux.createStore)(_reducers.default, initialState, (0, _redux.compose)(_redux.applyMiddleware.apply(void 0, middleware))); // store with redux devtools for dev only
+// const store = createStore(
+//   rootReducer,
+//   initialState,
+//   compose(
+//     applyMiddleware(...middleware),
+//     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+//   )
+// );
+
 var _default = store;
 exports.default = _default;
 },{"redux":"../node_modules/redux/es/redux.js","redux-api-middleware":"../node_modules/redux-api-middleware/lib/index.umd.js","redux-thunk":"../node_modules/redux-thunk/es/index.js","./reducers":"reducers/index.js"}],"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
@@ -44677,7 +44686,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44853" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41819" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
