@@ -38,9 +38,14 @@ app.use(passport.initialize());
 // Passport config
 require("./config/passport")(passport);
 
+app.use(express.static('client/dist'));
+
 // Routes
 app.use("/api/users", users);
 app.use("/api/teas", teas);
+app.use(function(req, res) {
+	res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 const port = process.env.PORT || 5000;
 
