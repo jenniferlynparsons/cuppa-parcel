@@ -42613,7 +42613,7 @@ function (_Component) {
         className: "box"
       }, _react.default.createElement("h3", null, "Thanks for checking out Cuppa!"), _react.default.createElement("p", null, "This project is under development and not meant for folks to use yet."), _react.default.createElement("p", null, "Currently the teas added are not tied to a particular user and all the data may be wiped at any time."), _react.default.createElement("p", null, "You're free to register an account, but that might get wiped, too."), _react.default.createElement("p", null, "Basically, everything is volatile on this site and you shouldn't depend on it to actually store your teas yet."), _react.default.createElement("h4", null, "Follow the project on", " ", _react.default.createElement("a", {
         href: "https://github.com/jenniferlynparsons/cuppa",
-        nofollow: true,
+        nofollow: "true",
         target: "_blank"
       }, "Github"))), _react.default.createElement("p", null, _react.default.createElement(_reactRouterDom.Link, {
         to: "/register",
@@ -44697,7 +44697,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42177" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35141" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

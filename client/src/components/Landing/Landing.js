@@ -29,7 +29,7 @@ class Landing extends Component {
             Follow the project on{" "}
             <a
               href="https://github.com/jenniferlynparsons/cuppa"
-              nofollow
+              nofollow="true"
               target="_blank"
             >
               Github
