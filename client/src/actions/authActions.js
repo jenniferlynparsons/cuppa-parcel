@@ -10,7 +10,7 @@ import {
   USER_LOADING
 } from "./types";
 
-const API_SERVER = "http://localhost:5000";
+const API_SERVER = process.env.API_SERVER || "";
 
 // Login - get user token
 export function loginAction(userData) {

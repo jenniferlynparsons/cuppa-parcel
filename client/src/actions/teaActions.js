@@ -1,7 +1,7 @@
 import { RSAA } from "redux-api-middleware";
 import { Tea } from "./../interfaces";
 
-const API_SERVER = "http://localhost:5000";
+const API_SERVER = process.env.API_SERVER || "";
 
 interface AddTea {
   type: "ADD_TEA";
