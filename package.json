@@ -1,5 +1,5 @@
 {
-  "name": "cuppa-server",
+  "name": "cuppa",
   "version": "1.0.0",
   "description": "a full MERN stack tea collection application",
   "main": "server.js",
