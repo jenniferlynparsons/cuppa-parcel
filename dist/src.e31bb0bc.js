@@ -33747,7 +33747,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-var API_SERVER = "http://localhost:5000"; // Login - get user token
+var backendHost;
+var hostname = window && window.location && window.location.hostname;
+
+if (hostname === "localhost") {
+  backendHost = "http://localhost:5000";
+} else {
+  backendHost = "";
+}
+
+var API_SERVER = "".concat(backendHost); // Login - get user token
 
 function loginAction(userData) {
   return _defineProperty({}, _reduxApiMiddleware.RSAA, {
@@ -43363,7 +43372,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-var API_SERVER = "http://localhost:5000"; // export const addTea = (tea: Tea): AddTea => ({ type: "ADD_TEA", payload: tea });
+var backendHost;
+var hostname = window && window.location && window.location.hostname;
+
+if (hostname === "localhost") {
+  backendHost = "http://localhost:5000";
+} else {
+  backendHost = "";
+}
+
+var API_SERVER = "".concat(backendHost); // export const addTea = (tea: Tea): AddTea => ({ type: "ADD_TEA", payload: tea });
 
 function deleteTea(tea) {
   return _defineProperty({}, _reduxApiMiddleware.RSAA, {
@@ -44679,7 +44697,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38329" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39855" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

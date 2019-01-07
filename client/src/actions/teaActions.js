@@ -1,7 +1,15 @@
 import { RSAA } from "redux-api-middleware";
 import { Tea } from "./../interfaces";
 
-const API_SERVER = process.env.API_SERVER || "";
+let backendHost;
+const hostname = window && window.location && window.location.hostname;
+
+if (hostname === "localhost") {
+  backendHost = "http://localhost:5000";
+} else {
+  backendHost = "";
+}
+const API_SERVER = `${backendHost}`;
 
 interface AddTea {
   type: "ADD_TEA";

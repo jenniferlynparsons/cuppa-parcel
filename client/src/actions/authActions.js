@@ -10,7 +10,15 @@ import {
   USER_LOADING
 } from "./types";
 
-const API_SERVER = process.env.API_SERVER || "";
+let backendHost;
+const hostname = window && window.location && window.location.hostname;
+
+if (hostname === "localhost") {
+  backendHost = "http://localhost:5000";
+} else {
+  backendHost = "";
+}
+const API_SERVER = `${backendHost}`;
 
 // Login - get user token
 export function loginAction(userData) {
