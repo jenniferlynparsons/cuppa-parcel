@@ -48,7 +48,7 @@ class App extends Component {
             <NavBar />
             <section className="section">
               <div className="App">
-                <Route exact path="/" component={Landing} />
+                <IndexRoute exact path="/" component={Landing} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
                 <Switch>

@@ -44457,7 +44457,7 @@ function (_Component) {
         className: "section"
       }, _react.default.createElement("div", {
         className: "App"
-      }, _react.default.createElement(_reactRouterDom.Route, {
+      }, _react.default.createElement(IndexRoute, {
         exact: true,
         path: "/",
         component: _Landing.default
@@ -44679,7 +44679,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46203" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34951" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
