@@ -7,6 +7,10 @@ const TeaSchema = new Schema({
     type: String,
     required: true
   },
+  userID: {
+    type: String,
+    required: true
+  },
   name: {
     type: String,
     required: true

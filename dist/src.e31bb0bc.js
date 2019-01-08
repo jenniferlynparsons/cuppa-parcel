@@ -36313,7 +36313,7 @@ function _default() {
       });
 
     case _types.GET_CURRENT_USER:
-      console.log(action.payload);
+      // console.log(action.payload);
       return _extends({}, state, {
         profile: action.payload,
         loading: false
@@ -43209,8 +43209,8 @@ function (_Component) {
   _createClass(Dashboard, [{
     key: "render",
     value: function render() {
-      var user = this.props.auth.user;
-      console.log(this.props);
+      var user = this.props.auth.user; // console.log(this.props);
+
       return _react.default.createElement("div", {
         className: "container content"
       }, _react.default.createElement("h1", null, "Hey there, ", user.name.split(" ")[0]), _react.default.createElement("div", {
@@ -43359,9 +43359,9 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteTea = deleteTea;
-exports.editTea = editTea;
 exports.addTea = addTea;
+exports.editTea = editTea;
+exports.deleteTea = deleteTea;
 exports.getTeas = getTeas;
 
 var _reduxApiMiddleware = require("redux-api-middleware");
@@ -43381,14 +43381,15 @@ if (hostname === "localhost") {
   backendHost = "";
 }
 
-var API_SERVER = "".concat(backendHost); // export const addTea = (tea: Tea): AddTea => ({ type: "ADD_TEA", payload: tea });
+var API_SERVER = "".concat(backendHost);
 
-function deleteTea(tea) {
+// Add Tea
+function addTea(tea) {
   return _defineProperty({}, _reduxApiMiddleware.RSAA, {
-    endpoint: "".concat(API_SERVER, "/api/teas/delete-tea"),
-    method: "DELETE",
+    endpoint: "".concat(API_SERVER, "/api/teas/new-tea"),
+    method: "POST",
     types: ["REQUEST", {
-      type: "DELETE_TEA",
+      type: "ADD_TEA",
       payload: function () {
         var _ref = _asyncToGenerator(
         /*#__PURE__*/
@@ -43402,9 +43403,10 @@ function deleteTea(tea) {
 
                 case 2:
                   res = _context.sent;
+                  console.log(JSON.stringify(res));
                   return _context.abrupt("return", res);
 
-                case 4:
+                case 5:
                 case "end":
                   return _context.stop();
               }
@@ -43511,15 +43513,14 @@ function editTea(tea) {
       "Content-Type": "application/json"
     }
   });
-} // Add Tea
+}
 
-
-function addTea(tea) {
+function deleteTea(tea) {
   return _defineProperty({}, _reduxApiMiddleware.RSAA, {
-    endpoint: "".concat(API_SERVER, "/api/teas/new-tea"),
-    method: "POST",
+    endpoint: "".concat(API_SERVER, "/api/teas/delete-tea"),
+    method: "DELETE",
     types: ["REQUEST", {
-      type: "ADD_TEA",
+      type: "DELETE_TEA",
       payload: function () {
         var _ref5 = _asyncToGenerator(
         /*#__PURE__*/
@@ -43580,10 +43581,11 @@ function addTea(tea) {
 } // Get Teas
 
 
-function getTeas() {
+function getTeas(userID) {
+  console.log(userID);
   return _defineProperty({}, _reduxApiMiddleware.RSAA, {
     endpoint: "".concat(API_SERVER, "/api/teas/teasList"),
-    method: "GET",
+    method: "POST",
     types: ["REQUEST", {
       type: "GET_TEAS",
       payload: function () {
@@ -43640,7 +43642,8 @@ function getTeas() {
     }],
     headers: {
       "Content-Type": "application/json"
-    }
+    },
+    body: JSON.stringify(userID)
   });
 }
 },{"redux-api-middleware":"../node_modules/redux-api-middleware/lib/index.umd.js","./../interfaces":"interfaces.ts"}],"actions/flashActions.js":[function(require,module,exports) {
@@ -43727,6 +43730,7 @@ function (_react_1$default$Comp) {
         name: false,
         servings: false
       },
+      userID: _this.props.userID,
       id: "",
       name: "",
       brand: "",
@@ -43810,6 +43814,7 @@ function (_react_1$default$Comp) {
               servings: false
             },
             id: "",
+            userID: _this.props.userID,
             name: "",
             brand: "",
             teaType: "",
@@ -43826,7 +43831,7 @@ function (_react_1$default$Comp) {
   _createClass(TeaEditor, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.getTeaList();
+      this.props.getTeaList(this.props.userID);
     }
   }, {
     key: "componentWillReceiveProps",
@@ -43834,8 +43839,7 @@ function (_react_1$default$Comp) {
       var filterTeas = this.props.teas.filter(function (t) {
         return t.id === teaProps.match.params.id;
       });
-      var currentTea = Object.assign({}, filterTeas[0]);
-      console.log(currentTea);
+      var currentTea = Object.assign({}, filterTeas[0]); // console.log(currentTea);
 
       if (currentTea.id) {
         this.setState(Object.assign({}, currentTea, {
@@ -43957,7 +43961,8 @@ exports.TeaEditor = TeaEditor;
 var mapStateToProps = function mapStateToProps(state) {
   return {
     teas: state.teas,
-    teaTypes: state.teaTypes
+    teaTypes: state.teaTypes,
+    userID: state.auth.user.id
   };
 };
 
@@ -43967,11 +43972,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       if (tea.edit === true) {
         dispatch(teaActions_1.editTea(tea));
       } else {
+        // console.log(tea);
         dispatch(teaActions_1.addTea(tea));
       }
     },
-    getTeaList: function getTeaList() {
-      dispatch(teaActions_1.getTeas());
+    getTeaList: function getTeaList(userID) {
+      dispatch(teaActions_1.getTeas(userID));
     },
     updateFlash: function updateFlash(status) {
       dispatch(flashActions_1.editTeaFlash(status));
@@ -44118,6 +44124,8 @@ var react_redux_1 = require("react-redux");
 
 var teaActions_1 = require("../../../actions/teaActions");
 
+var authActions_1 = require("../../../actions/authActions");
+
 var TeaList_1 = __importDefault(require("./TeaList"));
 
 var TeaListContainer =
@@ -44142,7 +44150,13 @@ function (_react_1$default$Comp) {
   _createClass(TeaListContainer, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.getTeaList();
+      this.props.getUser();
+      this.props.getTeaList(this.props.userID);
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(teaProps) {
+      console.log(teaProps);
     }
   }, {
     key: "render",
@@ -44163,7 +44177,8 @@ exports.TeaListContainer = TeaListContainer;
 var mapStateToProps = function mapStateToProps(state) {
   return {
     teas: state.teas,
-    teaTypes: state.teaTypes
+    teaTypes: state.teaTypes,
+    userID: state.auth.user.id
   };
 };
 
@@ -44172,14 +44187,21 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     handleDelete: function handleDelete(tea) {
       dispatch(teaActions_1.deleteTea(tea));
     },
-    getTeaList: function getTeaList() {
-      dispatch(teaActions_1.getTeas());
+    getTeaList: function getTeaList(userID) {
+      console.log("getTeaList");
+      dispatch(teaActions_1.getTeas({
+        userID: userID
+      }));
+    },
+    getUser: function getUser() {
+      console.log("getUser");
+      dispatch(authActions_1.getCurrentUser());
     }
   };
 };
 
 exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(TeaListContainer);
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../../actions/teaActions":"actions/teaActions.js","./TeaList":"components/Tea/TeaList/TeaList.tsx"}],"components/Tea/TeaList/index.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../../actions/teaActions":"actions/teaActions.js","../../../actions/authActions":"actions/authActions.js","./TeaList":"components/Tea/TeaList/TeaList.tsx"}],"components/Tea/TeaList/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -44331,7 +44353,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       dispatch(teaActions_1.deleteTea(tea));
     },
     updateFlash: function updateFlash(status) {
-      console.log(status);
+      // console.log(status)
       dispatch(flashActions_1.editTeaFlash(status));
     }
   };
@@ -44697,7 +44719,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41961" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34491" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
