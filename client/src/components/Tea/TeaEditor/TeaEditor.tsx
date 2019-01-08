@@ -18,6 +18,7 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
       name: false,
       servings: false
     },
+    userID: this.props.userID,
     id: "",
     name: "",
     brand: "",
@@ -105,6 +106,7 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
             servings: false
           },
           id: "",
+          userID: this.props.userID,
           name: "",
           brand: "",
           teaType: "",
@@ -116,7 +118,7 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
   };
 
   componentDidMount() {
-    this.props.getTeaList();
+    this.props.getTeaList(this.props.userID);
   }
 
   componentWillReceiveProps(teaProps) {
@@ -124,7 +126,7 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
       t => t.id === teaProps.match.params.id
     );
     const currentTea = { ...filterTeas[0] };
-    console.log(currentTea);
+    // console.log(currentTea);
     if (currentTea.id) {
       this.setState({ ...currentTea, edit: true });
     } else {
@@ -257,7 +259,8 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
 
 const mapStateToProps = (state: TeaEditorState) => ({
   teas: state.teas,
-  teaTypes: state.teaTypes
+  teaTypes: state.teaTypes,
+  userID: state.auth.user.id
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -265,11 +268,12 @@ const mapDispatchToProps = (dispatch: any) => ({
     if (tea.edit === true) {
       dispatch(editTea(tea));
     } else {
+      // console.log(tea);
       dispatch(addTea(tea));
     }
   },
-  getTeaList: () => {
-    dispatch(getTeas());
+  getTeaList: userID => {
+    dispatch(getTeas(userID));
   },
   updateFlash: status => {
     dispatch(editTeaFlash(status));

@@ -16,25 +16,19 @@ interface AddTea {
   payload: Tea;
 }
 
-// export const addTea = (tea: Tea): AddTea => ({ type: "ADD_TEA", payload: tea });
-
-interface DeleteTea {
-  type: "DELETE_TEA";
-  payload: Tea;
-}
-
-export function deleteTea(tea) {
+// Add Tea
+export function addTea(tea) {
   return {
     [RSAA]: {
-      endpoint: `${API_SERVER}/api/teas/delete-tea`,
-      method: "DELETE",
+      endpoint: `${API_SERVER}/api/teas/new-tea`,
+      method: "POST",
       types: [
         "REQUEST",
         {
-          type: "DELETE_TEA",
+          type: "ADD_TEA",
           payload: async (action, state, res) => {
             res = await res.json();
-            // console.log(JSON.stringify(res));
+            console.log(JSON.stringify(res));
 
             return res;
           }
@@ -85,16 +79,20 @@ export function editTea(tea) {
   };
 }
 
-// Add Tea
-export function addTea(tea) {
+interface DeleteTea {
+  type: "DELETE_TEA";
+  payload: Tea;
+}
+
+export function deleteTea(tea) {
   return {
     [RSAA]: {
-      endpoint: `${API_SERVER}/api/teas/new-tea`,
-      method: "POST",
+      endpoint: `${API_SERVER}/api/teas/delete-tea`,
+      method: "DELETE",
       types: [
         "REQUEST",
         {
-          type: "ADD_TEA",
+          type: "DELETE_TEA",
           payload: async (action, state, res) => {
             res = await res.json();
             // console.log(JSON.stringify(res));
@@ -116,11 +114,12 @@ export function addTea(tea) {
 }
 
 // Get Teas
-export function getTeas() {
+export function getTeas(userID) {
+  console.log(userID);
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/teas/teasList`,
-      method: "GET",
+      method: "POST",
       types: [
         "REQUEST",
         {
@@ -139,7 +138,8 @@ export function getTeas() {
           }
         }
       ],
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userID)
     }
   };
 }

@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(deleteTea(tea));
   },
   updateFlash: status => {
-    console.log(status)
+    // console.log(status)
     dispatch(editTeaFlash(status));
   }
 });

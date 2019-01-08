@@ -28,7 +28,7 @@ export default function(state = initialState, action) {
         loading: true
       };
     case GET_CURRENT_USER:
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state,
         profile: action.payload,

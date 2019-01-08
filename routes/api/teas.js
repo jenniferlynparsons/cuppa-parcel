@@ -24,6 +24,7 @@ router.post("/new-tea", (req, res) => {
 
     const newTea = new Tea({
       id: req.body.id,
+      userID: req.body.userID,
       name: req.body.name,
       brand: req.body.brand,
       teaType: req.body.teaType,
@@ -80,8 +81,8 @@ router.get('/tea', (req, res) => {
 
 
 
-router.get('/teasList', function(req, res) {
-  Tea.find({}, function(err, teas) {
+router.post('/teasList', function(req, res) {
+  Tea.find({userID: req.body.userID}, function(err, teas) {
     var teaMap = [];
     var index = 0
     teas.forEach(function(tea) {
