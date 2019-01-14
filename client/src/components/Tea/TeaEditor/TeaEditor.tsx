@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 import React from "react";
 import uuidv4 from "uuid/v4";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { TeaEditorProps, Errors } from "../../../interfaces";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { editTeaFlash } from "../../../actions/flashActions";

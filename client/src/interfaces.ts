@@ -19,7 +19,9 @@ export interface TeaListProps {
 
 export interface TeaDetailsProps {
   tea: Tea;
+  flash: string;
   handleDelete: (tea: Tea) => void;
+  onClick: (e: MouseEvent, boolean) => void;
 }
 
 export interface TeaEditorProps {
