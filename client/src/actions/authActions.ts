@@ -3,13 +3,6 @@ import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import { RSAA } from "redux-api-middleware";
 
-import {
-  GET_ERRORS,
-  GET_CURRENT_USER,
-  SET_CURRENT_USER,
-  USER_LOADING
-} from "./types";
-
 let backendHost;
 const hostname = window && window.location && window.location.hostname;
 
@@ -34,7 +27,7 @@ export function loginAction(userData) {
             res = await res.json();
             // Set token to localStorage
             // console.log(JSON.stringify(res));
-            let { token } = res;
+            const { token } = res;
             localStorage.setItem("jwtToken", token);
             // Set token to Auth header
             setAuthToken(token);
@@ -43,7 +36,7 @@ export function loginAction(userData) {
             // Set current user
             return dispatch => {
               return {
-                type: SET_CURRENT_USER,
+                type: "SET_CURRENT_USER",
                 payload: decoded
               };
             };
@@ -72,7 +65,7 @@ export function registerUser(userData, history) {
           }
         },
         {
-          type: GET_ERRORS,
+          type: "GET_ERRORS",
           payload: async (action, state, res) => {
             res.response.data;
           }
@@ -87,7 +80,7 @@ export function registerUser(userData, history) {
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {
-    type: SET_CURRENT_USER,
+    type: "SET_CURRENT_USER",
     payload: decoded
   };
 };
@@ -99,13 +92,13 @@ export const getCurrentUser = () => dispatch => {
     .get("/api/user/currentuser")
     .then(res =>
       dispatch({
-        type: GET_CURRENT_USER,
+        type: "GET_CURRENT_USER",
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS,
+        type: "GET_ERRORS",
         payload: err.response.data
       })
     );
@@ -114,7 +107,7 @@ export const getCurrentUser = () => dispatch => {
 // User loading
 export const setUserLoading = () => {
   return {
-    type: USER_LOADING
+    type: "USER_LOADING"
   };
 };
 

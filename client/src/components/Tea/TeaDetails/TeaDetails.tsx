@@ -8,7 +8,7 @@ export const TeaDetails: SFC<TeaDetailsProps> = props => {
     <div className="container content">
       {props.flash ? (
         <div className="notification is-success">
-          <button className="delete" onClick={e => props.onClick(e:React.MouseEvent<HTMLElement> false)} />
+          <button className="delete" onClick={e => props.onClick(e false)} />
           {props.tea.name} has been succesfully updated.
         </div>
       ) : (

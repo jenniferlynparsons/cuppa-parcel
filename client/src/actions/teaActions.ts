@@ -1,5 +1,5 @@
 import { RSAA } from "redux-api-middleware";
-import { Tea } from "./../interfaces";
+import { Tea } from "../interfaces";
 
 let backendHost;
 const hostname = window && window.location && window.location.hostname;
