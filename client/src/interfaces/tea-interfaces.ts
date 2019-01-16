@@ -38,22 +38,12 @@ export interface TeaEditorState {
   teaTypes: [];
 }
 
-export interface Props extends RouteComponentProps {
+export interface TeaProps extends RouteComponentProps {
   handleSubmit: (tea: Tea) => void;
   handleDelete: (tea: Tea) => void;
 }
 
-export interface AppState {
-  id: string;
-  teas: [{ id: string }];
-}
-
-export interface Action {
-  type: string;
-  payload: object;
-}
-
-export interface Errors {
+export interface TeaErrors {
   name: boolean;
   servings: boolean;
 }

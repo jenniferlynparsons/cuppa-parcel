@@ -3,7 +3,7 @@ import React from "react";
 import uuidv4 from "uuid/v4";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { TeaEditorProps, Errors } from "../../../interfaces";
+import { TeaEditorProps, TeaErrors } from "../../../interfaces/tea-interfaces";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { editTeaFlash } from "../../../actions/flashActions";
 
@@ -67,7 +67,7 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
     });
   };
 
-  handleSubmitButton = (e, errors: Errors) => {
+  handleSubmitButton = (e, errors: TeaErrors) => {
     if (!this.state.id) {
       this.setState({
         ...this.state,
@@ -86,7 +86,7 @@ export class TeaEditor extends React.Component<TeaEditorProps, {}> {
 
   handleFormSubmit = (
     event: React.FormEvent<HTMLFormElement>,
-    errors: Errors
+    errors: TeaErrors
   ) => {
     event.preventDefault();
     if ((errors.servings || errors.name) === false) {

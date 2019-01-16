@@ -2,7 +2,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { AppState, TeaDetailsProps, Tea } from "../../../interfaces";
+import { AppState, TeaDetailsProps, Tea } from "../../../interfaces/tea-interfaces";
 import { deleteTea } from "../../../actions/teaActions";
 import { TeaDetails } from "./TeaDetails";
 import { editTeaFlash } from "../../../actions/flashActions";

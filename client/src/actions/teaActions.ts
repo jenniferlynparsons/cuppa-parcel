@@ -1,5 +1,5 @@
 import { RSAA } from "redux-api-middleware";
-import { Tea } from "../interfaces";
+import { Tea } from "../interfaces/tea-interfaces";
 
 let backendHost;
 const hostname = window && window.location && window.location.hostname;
@@ -11,13 +11,8 @@ if (hostname === "localhost") {
 }
 const API_SERVER = `${backendHost}`;
 
-interface AddTea {
-  type: "ADD_TEA";
-  payload: Tea;
-}
-
 // Add Tea
-export function addTea(tea) {
+export function addTea(tea: Tea) {
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/teas/new-tea`,
@@ -46,12 +41,7 @@ export function addTea(tea) {
   };
 }
 
-interface EditTea {
-  type: "EDIT_TEA";
-  payload: Tea;
-}
-
-export function editTea(tea) {
+export function editTea(tea: Tea) {
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/teas/update-tea`,
@@ -79,12 +69,7 @@ export function editTea(tea) {
   };
 }
 
-interface DeleteTea {
-  type: "DELETE_TEA";
-  payload: Tea;
-}
-
-export function deleteTea(tea) {
+export function deleteTea(tea: Tea) {
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/teas/delete-tea`,

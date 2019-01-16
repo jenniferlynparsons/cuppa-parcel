@@ -1,11 +1,10 @@
-import { Tea, Action } from "../interfaces";
+import { Tea } from "../interfaces/tea-interfaces";
+import { Action } from "../interfaces/general-interfaces";
 import { Set, Map } from "immutable";
 
 export default (state: Tea[] = [], action: Action): Tea[] => {
   switch (action.type) {
     case "ADD_TEA":
-      // console.log("action.payload");
-      // console.log(action.payload);
       return [...state, action.payload];
     case "DELETE_TEA":
       return state.filter(t => t.id !== action.payload.id);

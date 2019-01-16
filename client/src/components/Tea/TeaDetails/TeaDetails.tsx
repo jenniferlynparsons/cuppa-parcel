@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { SFC } from "react";
-import { TeaDetailsProps } from "../../../interfaces";
+import { TeaDetailsProps } from "../../../interfaces/tea-interfaces";
 import { Link } from "react-router-dom";
 
 export const TeaDetails: SFC<TeaDetailsProps> = props => {

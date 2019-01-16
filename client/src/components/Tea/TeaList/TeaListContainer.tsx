@@ -1,6 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { TeaListProps, AppState, Tea } from "../../../interfaces";
+import {
+  TeaListProps,
+  AppState,
+  Tea
+} from "../../../interfaces/tea-interfaces";
 import { deleteTea, getTeas } from "../../../actions/teaActions";
 import { getCurrentUser } from "../../../actions/authActions";
 import TeaList from "./TeaList";

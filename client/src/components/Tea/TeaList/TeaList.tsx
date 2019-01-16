@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { TeaListProps, Tea } from "../../../interfaces";
+import { TeaListProps, Tea } from "../../../interfaces/tea-interfaces";
 
 export class TeaList extends React.Component<TeaListProps, {}> {
   handleDeleteClick = (tea: Tea) => {

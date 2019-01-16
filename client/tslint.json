@@ -3,7 +3,8 @@
     "tslint:recommended",
     "tslint-react",
     "tslint-config-prettier",
-    "tslint-react-a11y"
+    "tslint-react-a11y",
+    "dtslint/dt.json"
   ],
   "rules": {
     "ordered-imports": false,
