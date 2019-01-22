@@ -1,5 +1,6 @@
 import { RSAA } from "redux-api-middleware";
 import { Tea } from "../interfaces/tea-interfaces";
+import { APIResponse, UserIdObj } from "../interfaces/general-interfaces";
 
 let backendHost;
 const hostname = window && window.location && window.location.hostname;
@@ -21,18 +22,15 @@ export function addTea(tea: Tea) {
         "REQUEST",
         {
           type: "ADD_TEA",
-          payload: async (action, state, res) => {
+          payload: async (_action: any, _state: any, res: APIResponse) => {
             res = await res.json();
-            console.log(JSON.stringify(res));
-
             return res;
           }
         },
         {
           type: "GET_ERRORS",
-          payload: async (action, state, res) => {
-            res.response.data;
-          }
+          payload: async (_action: any, _state: any, res: APIResponse) =>
+            res.response.data
         }
       ],
       body: JSON.stringify(tea),
@@ -50,7 +48,7 @@ export function editTea(tea: Tea) {
         "REQUEST",
         {
           type: "EDIT_TEA",
-          payload: async (action, state, res) => {
+          payload: async (_action: any, _state: any, res: APIResponse) => {
             res = await res.json();
 
             return res;
@@ -58,9 +56,8 @@ export function editTea(tea: Tea) {
         },
         {
           type: "GET_ERRORS",
-          payload: async (action, state, res) => {
-            res.response.data;
-          }
+          payload: async (_action: any, _state: any, res: APIResponse) =>
+            res.response.data
         }
       ],
       body: JSON.stringify(tea),
@@ -78,18 +75,15 @@ export function deleteTea(tea: Tea) {
         "REQUEST",
         {
           type: "DELETE_TEA",
-          payload: async (action, state, res) => {
+          payload: async (_action: any, _state: any, res: APIResponse) => {
             res = await res.json();
-            // console.log(JSON.stringify(res));
-
             return res;
           }
         },
         {
           type: "GET_ERRORS",
-          payload: async (action, state, res) => {
-            res.response.data;
-          }
+          payload: async (_action: any, _state: any, res: APIResponse) =>
+            res.response.data
         }
       ],
       body: JSON.stringify(tea),
@@ -99,8 +93,7 @@ export function deleteTea(tea: Tea) {
 }
 
 // Get Teas
-export function getTeas(userID) {
-  console.log(userID);
+export function getTeas(listOwner: UserIdObj) {
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/teas/teasList`,
@@ -109,22 +102,19 @@ export function getTeas(userID) {
         "REQUEST",
         {
           type: "GET_TEAS",
-          payload: async (action, state, res) => {
+          payload: async (_action: any, _state: any, res: APIResponse) => {
             res = await res.json();
-            // console.log(res);
-
             return res;
           }
         },
         {
           type: "GET_ERRORS",
-          payload: async (action, state, res) => {
-            res.response.data;
-          }
+          payload: async (_action: any, _state: any, res: APIResponse) =>
+            res.response.data
         }
       ],
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userID)
+      body: JSON.stringify(listOwner)
     }
   };
 }

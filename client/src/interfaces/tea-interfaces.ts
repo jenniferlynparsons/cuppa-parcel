@@ -1,35 +1,50 @@
 // import { RouteComponentProps } from "@reach/router";
-
+import { GetUser } from "./auth-interfaces";
+import { Match, UpdateFlash, UserId } from "./general-interfaces";
 export interface Tea {
   id: string;
-  name: string;
-  brand: string;
-  teaType: string;
-  servings: number;
-  updated: boolean;
+  name?: string;
+  brand?: string;
+  teaType?: string;
+  servings?: number;
+  updated?: boolean;
+  match?: Match;
 }
 
 export type TeaTypes = string[];
 
 export type Teas = Tea[];
 
+export type HandleDelete = (tea: Tea) => void;
 export interface TeaListProps {
-  handleDelete: (tea: Tea) => void;
+  handleDelete: HandleDelete;
+  getTeaList: (userID: UserId) => void;
+  userID: UserId;
+  teas: Teas;
+  teaTypes: TeaTypes;
+  getUser: GetUser;
 }
 
 export interface TeaDetailsProps {
   tea: Tea;
   flash: string;
   handleDelete: (tea: Tea) => void;
-  onClick: (e: MouseEvent, boolean) => void;
+  onClick: (
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
+    status: boolean
+  ) => void;
+  updateFlash: UpdateFlash;
 }
 
 export interface TeaEditorProps {
   name: string;
   servings: number;
   id: string;
-  teas: [];
   errors: [];
+  userID: string;
+  teas: Teas;
+  teaTypes: TeaTypes;
+  getUser: GetUser;
   handleSubmit: (tea: Tea) => void;
 }
 
@@ -38,7 +53,7 @@ export interface TeaEditorState {
   teaTypes: [];
 }
 
-export interface TeaProps extends RouteComponentProps {
+export interface TeaProps {
   handleSubmit: (tea: Tea) => void;
   handleDelete: (tea: Tea) => void;
 }

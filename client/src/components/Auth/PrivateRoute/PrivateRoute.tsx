@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { AppState } from "../../../interfaces/general-interfaces";
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
@@ -15,7 +16,7 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   />
 );
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   auth: state.auth
 });
 

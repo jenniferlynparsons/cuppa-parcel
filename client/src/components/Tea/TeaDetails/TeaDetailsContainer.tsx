@@ -1,25 +1,36 @@
 /* eslint-disable no-console */
-import React from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { AppState, TeaDetailsProps, Tea } from "../../../interfaces/tea-interfaces";
+import { TeaDetailsProps, Tea } from "../../../interfaces/tea-interfaces";
+import { AppState, FlashStatus } from "../../../interfaces/general-interfaces";
 import { deleteTea } from "../../../actions/teaActions";
 import { TeaDetails } from "./TeaDetails";
 import { editTeaFlash } from "../../../actions/flashActions";
 
-export class TeaDetailsContainer extends React.Component<TeaDetailsProps, {}> {
-
-  clickHandler = (e, status) => {
-    this.props.updateFlash(status)
-  }
+class TeaDetailsContainer extends Component<TeaDetailsProps, {}> {
+  clickHandler = (
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
+    status: FlashStatus
+  ) => {
+    this.props.updateFlash(status);
+  };
 
   render() {
-    return <TeaDetails tea={this.props.tea} flash={this.props.flash} onClick={this.clickHandler}/>;
+    return (
+      <TeaDetails
+        tea={this.props.tea}
+        flash={this.props.flash}
+        onClick={this.clickHandler}
+        handleDelete={this.props.handleDelete}
+        updateFlash={this.props.updateFlash}
+      />
+    );
   }
 }
 
 const mapStateToProps = (state: AppState, ownProps: Tea) => ({
-  tea: state.teas.find(tea => tea.id === ownProps.match.params.id)
+  tea: state.teas.find(tea => tea.id === ownProps.match.params.id),
   flash: state.flash
 });
 
@@ -27,8 +38,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   handleDelete: (tea: Tea) => {
     dispatch(deleteTea(tea));
   },
-  updateFlash: status => {
-    // console.log(status)
+  updateFlash: (status: FlashStatus) => {
     dispatch(editTeaFlash(status));
   }
 });

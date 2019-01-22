@@ -3,8 +3,7 @@
     "tslint:recommended",
     "tslint-react",
     "tslint-config-prettier",
-    "tslint-react-a11y",
-    "dtslint/dt.json"
+    "tslint-react-a11y"
   ],
   "rules": {
     "ordered-imports": false,
@@ -13,6 +12,13 @@
     "member-ordering": false,
     "no-console": false,
     "member-access": [true, "no-public"],
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case"
+    ]
   }
 }

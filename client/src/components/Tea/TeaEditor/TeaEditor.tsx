@@ -4,10 +4,11 @@ import uuidv4 from "uuid/v4";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { TeaEditorProps, TeaErrors } from "../../../interfaces/tea-interfaces";
+import { AppState, UserId } from "../../../interfaces/general-interfaces";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { editTeaFlash } from "../../../actions/flashActions";
 
-export class TeaEditor extends React.Component<TeaEditorProps, {}> {
+export class TeaEditor extends React.Component<TeaEditorProps, ""> {
   state = {
     flash: {
       name: "",

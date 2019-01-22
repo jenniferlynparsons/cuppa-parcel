@@ -38,6 +38,8 @@
     "validator": "^10.9.0"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.7",
+    "@types/react-router": "^4.4.3",
     "nodemon": "^1.18.8"
   }
 }

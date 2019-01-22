@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../../utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "../../actions/authActions";
+import { FrontDecoded } from "../../interfaces/general-interfaces";
 import { Provider } from "react-redux";
 import store from "../../store";
 // Routes
@@ -25,8 +26,9 @@ if (localStorage.jwtToken) {
   // Set auth token header auth
   const token = localStorage.jwtToken;
   setAuthToken(token);
+
   // Decode token and get user info and exp
-  const decoded = jwt_decode(token);
+  const decoded = jwt_decode(token) as FrontDecoded;
   // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
   // Check for expired token
@@ -48,24 +50,36 @@ class App extends Component {
             <NavBar />
             <section className="section">
               <div className="App">
-                <Route exact path="/" component={Landing} />
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/login" component={Login} />
+                <Route exact={true} path="/" component={Landing} />
+                <Route exact={true} path="/register" component={Register} />
+                <Route exact={true} path="/login" component={Login} />
                 <Switch>
                   <PrivateRoute
-                    exact
+                    exact={true}
                     path="/tea-collection"
                     component={TeaList}
                   />
-                  <PrivateRoute exact path="/new-tea" component={TeaEditor} />
                   <PrivateRoute
-                    exact
+                    exact={true}
+                    path="/new-tea"
+                    component={TeaEditor}
+                  />
+                  <PrivateRoute
+                    exact={true}
                     path="/update-tea/:id"
                     component={TeaEditor}
                   />
-                  <PrivateRoute exact path="/tea/:id" component={TeaDetails} />
+                  <PrivateRoute
+                    exact={true}
+                    path="/tea/:id"
+                    component={TeaDetails}
+                  />
 
-                  <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                  <PrivateRoute
+                    exact={true}
+                    path="/dashboard"
+                    component={Dashboard}
+                  />
                 </Switch>
               </div>
             </section>

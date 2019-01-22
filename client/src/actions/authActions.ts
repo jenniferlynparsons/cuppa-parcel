@@ -2,7 +2,10 @@ import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import { RSAA } from "redux-api-middleware";
+import { UserState, Decoded } from "../interfaces/auth-interfaces";
+import { History, APIResponse } from "../interfaces/general-interfaces";
 
+// Set the host to work with local dev or Heroku and avoid proxy CORS issues
 let backendHost;
 const hostname = window && window.location && window.location.hostname;
 
@@ -14,7 +17,7 @@ if (hostname === "localhost") {
 const API_SERVER = `${backendHost}`;
 
 // Login - get user token
-export function loginAction(userData) {
+export function loginAction(userData: UserState) {
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/users/login`,
@@ -23,10 +26,10 @@ export function loginAction(userData) {
         "REQUEST",
         {
           type: "SUCCESS",
-          payload: async (action, state, res) => {
+          payload: async (_action: any, _state: any, res: APIResponse) => {
+            console.log(typeof res);
             res = await res.json();
             // Set token to localStorage
-            // console.log(JSON.stringify(res));
             const { token } = res;
             localStorage.setItem("jwtToken", token);
             // Set token to Auth header
@@ -34,7 +37,7 @@ export function loginAction(userData) {
             // Decode token to get user data
             const decoded = jwt_decode(token);
             // Set current user
-            return dispatch => {
+            return (dispatch: any) => {
               return {
                 type: "SET_CURRENT_USER",
                 payload: decoded
@@ -51,7 +54,7 @@ export function loginAction(userData) {
 }
 
 // Register User
-export function registerUser(userData, history) {
+export function registerUser(userData: UserState, history: History) {
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/users/register`,
@@ -60,14 +63,15 @@ export function registerUser(userData, history) {
         "REQUEST",
         {
           type: "SUCCESS",
-          payload: async (action, state, res) => {
-            history.push("/login");
+          payload: async (_action: any, _state: any, _res: APIResponse) => {
+            const arg = "/login";
+            history.push(arg);
           }
         },
         {
           type: "GET_ERRORS",
-          payload: async (action, state, res) => {
-            res.response.data;
+          payload: async (_action: any, _state: any, res: APIResponse) => {
+            return res.response.data;
           }
         }
       ],
@@ -78,7 +82,7 @@ export function registerUser(userData, history) {
 }
 
 // Set logged in user
-export const setCurrentUser = decoded => {
+export const setCurrentUser = (decoded: Decoded) => {
   return {
     type: "SET_CURRENT_USER",
     payload: decoded
@@ -86,7 +90,7 @@ export const setCurrentUser = decoded => {
 };
 
 // Get current user
-export const getCurrentUser = () => dispatch => {
+export const getCurrentUser = () => (dispatch: any) => {
   dispatch(setUserLoading());
   axios
     .get("/api/user/currentuser")
@@ -112,7 +116,7 @@ export const setUserLoading = () => {
 };
 
 // Log user out
-export const logoutUser = () => dispatch => {
+export const logoutUser = () => (dispatch: any) => {
   // Remove token from local storage
   localStorage.removeItem("jwtToken");
   // Remove auth header for future requests
