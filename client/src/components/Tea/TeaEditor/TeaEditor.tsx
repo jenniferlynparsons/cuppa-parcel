@@ -12,8 +12,7 @@ import {
 import {
   AppState,
   UserIdObj,
-  FlashStatus,
-  History
+  FlashStatus
 } from "../../../interfaces/general-interfaces";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { editTeaFlash } from "../../../actions/flashActions";
@@ -280,8 +279,8 @@ const mapDispatchToProps = (dispatch: any) => ({
       dispatch(addTea(tea));
     }
   },
-  getTeaList: (userID: UserIdObj) => {
-    dispatch(getTeas(userID));
+  getTeaList: (userIDNum: UserIdObj) => {
+    dispatch(getTeas({ userID: userIDNum }));
   },
   updateFlash: (status: FlashStatus) => {
     dispatch(editTeaFlash(status));

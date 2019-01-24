@@ -43463,6 +43463,7 @@ var API_SERVER = "".concat(backendHost); // Add Tea
 function addTea(tea) {
   var _this = this;
 
+  console.log("this one");
   return _defineProperty({}, redux_api_middleware_1.RSAA, {
     endpoint: "".concat(API_SERVER, "/api/teas/new-tea"),
     method: "POST",
@@ -43524,6 +43525,7 @@ exports.addTea = addTea;
 function editTea(tea) {
   var _this2 = this;
 
+  console.log("that one");
   return _defineProperty({}, redux_api_middleware_1.RSAA, {
     endpoint: "".concat(API_SERVER, "/api/teas/update-tea"),
     method: "PUT",
@@ -44027,8 +44029,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         dispatch(teaActions_1.addTea(tea));
       }
     },
-    getTeaList: function getTeaList(userID) {
-      dispatch(teaActions_1.getTeas(userID));
+    getTeaList: function getTeaList(userIDNum) {
+      dispatch(teaActions_1.getTeas({
+        userID: userIDNum
+      }));
     },
     updateFlash: function updateFlash(status) {
       dispatch(flashActions_1.editTeaFlash(status));
@@ -44655,7 +44659,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40101" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42289" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
