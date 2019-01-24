@@ -1,5 +1,6 @@
 import { RSAA } from "redux-api-middleware";
-import { Tea } from "./../interfaces";
+import { Tea } from "../interfaces/tea-interfaces";
+import { APIResponse, UserIdObj } from "../interfaces/general-interfaces";
 
 let backendHost;
 const hostname = window && window.location && window.location.hostname;
@@ -11,13 +12,9 @@ if (hostname === "localhost") {
 }
 const API_SERVER = `${backendHost}`;
 
-interface AddTea {
-  type: "ADD_TEA";
-  payload: Tea;
-}
-
 // Add Tea
-export function addTea(tea) {
+export function addTea(tea: Tea) {
+  console.log("this one");
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/teas/new-tea`,
@@ -26,18 +23,15 @@ export function addTea(tea) {
         "REQUEST",
         {
           type: "ADD_TEA",
-          payload: async (action, state, res) => {
+          payload: async (_action: any, _state: any, res: APIResponse) => {
             res = await res.json();
-            console.log(JSON.stringify(res));
-
             return res;
           }
         },
         {
           type: "GET_ERRORS",
-          payload: async (action, state, res) => {
-            res.response.data;
-          }
+          payload: async (_action: any, _state: any, res: APIResponse) =>
+            res.response.data
         }
       ],
       body: JSON.stringify(tea),
@@ -46,12 +40,8 @@ export function addTea(tea) {
   };
 }
 
-interface EditTea {
-  type: "EDIT_TEA";
-  payload: Tea;
-}
-
-export function editTea(tea) {
+export function editTea(tea: Tea) {
+  console.log("that one");
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/teas/update-tea`,
@@ -60,7 +50,7 @@ export function editTea(tea) {
         "REQUEST",
         {
           type: "EDIT_TEA",
-          payload: async (action, state, res) => {
+          payload: async (_action: any, _state: any, res: APIResponse) => {
             res = await res.json();
 
             return res;
@@ -68,9 +58,8 @@ export function editTea(tea) {
         },
         {
           type: "GET_ERRORS",
-          payload: async (action, state, res) => {
-            res.response.data;
-          }
+          payload: async (_action: any, _state: any, res: APIResponse) =>
+            res.response.data
         }
       ],
       body: JSON.stringify(tea),
@@ -79,12 +68,7 @@ export function editTea(tea) {
   };
 }
 
-interface DeleteTea {
-  type: "DELETE_TEA";
-  payload: Tea;
-}
-
-export function deleteTea(tea) {
+export function deleteTea(tea: Tea) {
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/teas/delete-tea`,
@@ -93,18 +77,15 @@ export function deleteTea(tea) {
         "REQUEST",
         {
           type: "DELETE_TEA",
-          payload: async (action, state, res) => {
+          payload: async (_action: any, _state: any, res: APIResponse) => {
             res = await res.json();
-            // console.log(JSON.stringify(res));
-
             return res;
           }
         },
         {
           type: "GET_ERRORS",
-          payload: async (action, state, res) => {
-            res.response.data;
-          }
+          payload: async (_action: any, _state: any, res: APIResponse) =>
+            res.response.data
         }
       ],
       body: JSON.stringify(tea),
@@ -114,8 +95,7 @@ export function deleteTea(tea) {
 }
 
 // Get Teas
-export function getTeas(userID) {
-  console.log(userID);
+export function getTeas(listOwner: UserIdObj) {
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/teas/teasList`,
@@ -124,22 +104,19 @@ export function getTeas(userID) {
         "REQUEST",
         {
           type: "GET_TEAS",
-          payload: async (action, state, res) => {
+          payload: async (_action: any, _state: any, res: APIResponse) => {
             res = await res.json();
-            // console.log(res);
-
             return res;
           }
         },
         {
           type: "GET_ERRORS",
-          payload: async (action, state, res) => {
-            res.response.data;
-          }
+          payload: async (_action: any, _state: any, res: APIResponse) =>
+            res.response.data
         }
       ],
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userID)
+      body: JSON.stringify(listOwner)
     }
   };
 }

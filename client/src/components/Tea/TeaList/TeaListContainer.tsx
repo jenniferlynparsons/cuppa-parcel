@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { TeaListProps, AppState, Tea } from "../../../interfaces";
+import { TeaListProps, Tea } from "../../../interfaces/tea-interfaces";
+import { AppState, UserId } from "../../../interfaces/general-interfaces";
 import { deleteTea, getTeas } from "../../../actions/teaActions";
 import { getCurrentUser } from "../../../actions/authActions";
 import TeaList from "./TeaList";
 
-export class TeaListContainer extends React.Component<TeaListProps> {
+export class TeaListContainer extends React.Component<TeaListProps, AppState> {
   handleDeleteClick = (tea: Tea) => {
     this.props.handleDelete(tea);
   };
@@ -15,16 +16,15 @@ export class TeaListContainer extends React.Component<TeaListProps> {
     this.props.getTeaList(this.props.userID);
   }
 
-  componentWillReceiveProps(teaProps) {
-    console.log(teaProps);
-  }
-
   render() {
     return (
       <TeaList
+        userID={this.props.userID}
         teas={this.props.teas}
         teaTypes={this.props.teaTypes}
         handleDelete={this.props.handleDelete}
+        getTeaList={this.props.getTeaList}
+        getUser={this.props.getUser}
       />
     );
   }
@@ -40,9 +40,8 @@ const mapDispatchToProps = (dispatch: any) => ({
   handleDelete: (tea: any) => {
     dispatch(deleteTea(tea));
   },
-  getTeaList: userID => {
-    console.log("getTeaList");
-    dispatch(getTeas({ userID: userID }));
+  getTeaList: (userID: UserId) => {
+    dispatch(getTeas({ listOwner: userID }));
   },
   getUser: () => {
     console.log("getUser");

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { logoutUser, getCurrentUser } from "../../actions/authActions";
+import { logoutUser } from "../../actions/authActions";
+import { UserProps } from "../../interfaces/auth-interfaces";
+import { AppState } from "../../interfaces/general-interfaces";
 
-class Dashboard extends Component {
-  onLogoutClick = e => {
+class Dashboard extends Component<UserProps, AppState> {
+  onLogoutClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     this.props.logoutUser();
   };
@@ -33,7 +35,7 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   auth: state.auth
 });
 

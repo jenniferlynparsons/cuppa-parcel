@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
+import { AppState } from "../../../interfaces/general-interfaces";
+import { UserProps } from "../../../interfaces/auth-interfaces";
 import "./NavBar.scss";
 import tea from "../../../common_styles/tea.svg";
 
-class NavBar extends Component {
-  onLogoutClick = e => {
+class NavBar extends Component<UserProps, AppState> {
+  onLogoutClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     this.props.logoutUser();
   };
@@ -69,9 +71,7 @@ class NavBar extends Component {
   }
 }
 
-// export default NavBar;
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   auth: state.auth
 });
 

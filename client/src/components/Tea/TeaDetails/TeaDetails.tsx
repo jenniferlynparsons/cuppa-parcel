@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
-import React, { SFC } from "react";
-import { TeaDetailsProps } from "../../../interfaces";
+import React from "react";
+import { TeaDetailsProps } from "../../../interfaces/tea-interfaces";
 import { Link } from "react-router-dom";
 
-export const TeaDetails: SFC<TeaDetailsProps> = props => {
+export const TeaDetails = (props: TeaDetailsProps) => {
   return (
     <div className="container content">
       {props.flash ? (

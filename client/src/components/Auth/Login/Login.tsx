@@ -2,26 +2,31 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginAction } from "../../../actions/authActions";
+import { AppState } from "../../../interfaces/general-interfaces";
+import { UserProps, UserState } from "../../../interfaces/auth-interfaces";
 import classnames from "classnames";
 
-class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
+class Login extends Component<UserProps, UserState> {
+  state = {
+    email: "",
+    password: "",
+    errors: {
       email: "",
+      emailnotfound: "",
       password: "",
-      errors: {}
-    };
-  }
+      passwordincorrect: ""
+    }
+  };
 
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
+      console.log(typeof history);
       this.props.history.push("/dashboard");
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: UserProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
@@ -33,11 +38,11 @@ class Login extends Component {
     }
   }
 
-  onChange = e => {
-    this.setState({ [e.target.id]: e.target.value });
+  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ [e.currentTarget.id]: e.currentTarget.value });
   };
 
-  onSubmit = e => {
+  onSubmit: React.ReactEventHandler<HTMLInputElement> = e => {
     e.preventDefault();
 
     const userData = {
@@ -46,13 +51,9 @@ class Login extends Component {
     };
 
     this.props.handleSubmit(userData);
-
-    // dispatch(loginAction(userData));
   };
 
   render() {
-    const { errors } = this.state;
-
     return (
       <div className="container content">
         <Link to="/">Back to home</Link>
@@ -60,14 +61,14 @@ class Login extends Component {
         <p>
           Don't have an account? <Link to="/register">Register</Link>
         </p>
-        <form noValidate onSubmit={this.onSubmit}>
+        <form noValidate={true} onSubmit={this.onSubmit}>
           <div className="field">
             <label className="label">Email</label>
             <div className="control">
               <input
                 onChange={this.onChange}
                 value={this.state.email}
-                error={errors.email}
+                error={this.state.errors.email}
                 id="email"
                 type="email"
                 className={classnames("input", {
@@ -76,8 +77,8 @@ class Login extends Component {
               />
             </div>
             <span className="help is-danger">
-              {errors.email}
-              {errors.emailnotfound}
+              {this.state.errors.email}
+              {this.state.errors.emailnotfound}
             </span>
           </div>
           <div className="field">
@@ -85,7 +86,7 @@ class Login extends Component {
             <input
               onChange={this.onChange}
               value={this.state.password}
-              error={errors.password}
+              error={this.state.errors.password}
               id="password"
               type="password"
               className={classnames("input", {
@@ -93,8 +94,8 @@ class Login extends Component {
               })}
             />
             <span className="help is-danger">
-              {errors.password}
-              {errors.passwordincorrect}
+              {this.state.errors.password}
+              {this.state.errors.passwordincorrect}
             </span>
           </div>
           <div className="field">
@@ -110,13 +111,13 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   auth: state.auth,
   errors: state.errors
 });
 
-const mapDispatchToProps = dispatch => ({
-  handleSubmit: userData => {
+const mapDispatchToProps = (dispatch: any) => ({
+  handleSubmit: (userData: UserState) => {
     dispatch(loginAction(userData));
   }
 });

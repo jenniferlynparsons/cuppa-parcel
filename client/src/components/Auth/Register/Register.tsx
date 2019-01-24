@@ -2,19 +2,25 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser } from "../../../actions/authActions";
+import { AppState } from "../../../interfaces/general-interfaces";
+import { UserProps, UserState } from "../../../interfaces/auth-interfaces";
 import classnames from "classnames";
 
-class Register extends Component {
-  constructor() {
-    super();
-    this.state = {
+class Register extends Component<UserProps, UserState> {
+  state = {
+    name: "",
+    email: "",
+    password: "",
+    password2: "",
+    errors: {
       name: "",
       email: "",
+      emailnotfound: "",
       password: "",
       password2: "",
-      errors: {}
-    };
-  }
+      passwordincorrect: ""
+    }
+  };
 
   componentDidMount() {
     // If logged in and user navigates to Register page, should redirect them to dashboard
@@ -58,7 +64,7 @@ class Register extends Component {
         <p>
           Already have an account? <Link to="/login">Log in</Link>
         </p>
-        <form noValidate onSubmit={this.onSubmit}>
+        <form noValidate={true} onSubmit={this.onSubmit}>
           <div className="field">
             <label className="label">Name</label>
             <div className="control">
@@ -134,7 +140,7 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   auth: state.auth,
   errors: state.errors
 });
