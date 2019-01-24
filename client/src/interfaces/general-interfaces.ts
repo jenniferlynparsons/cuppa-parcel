@@ -15,6 +15,10 @@ export interface Match {
   };
 }
 
+export interface History {
+  push: (path: string) => void;
+}
+
 export interface AppState {
   id: string;
   teas: [{ id: string }];
@@ -23,7 +27,7 @@ export interface AppState {
   errors: UserErrors;
   handleSubmit: (userData: UserState) => void;
   flash?: FlashStatus;
-  history: object;
+  history: History;
 }
 export interface AuthAction {
   type: string;

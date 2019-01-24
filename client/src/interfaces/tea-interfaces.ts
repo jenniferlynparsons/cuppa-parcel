@@ -1,6 +1,6 @@
 // import { RouteComponentProps } from "@reach/router";
 import { GetUser } from "./auth-interfaces";
-import { Match, UpdateFlash, UserId } from "./general-interfaces";
+import { Match, UpdateFlash, UserId, History } from "./general-interfaces";
 
 export interface TeaAction {
   type: string;
@@ -16,12 +16,17 @@ export interface Tea {
   teaType?: string;
   servings?: number;
   updated?: boolean;
-  match: Match;
+  match?: Match;
 }
 
 export type TeaTypes = string[];
 
 export type Teas = Tea[];
+
+export interface TeaFlash {
+  name: string;
+  id: string;
+}
 
 export type HandleDelete = (tea: Tea) => void;
 export interface TeaListProps {
@@ -53,12 +58,27 @@ export interface TeaEditorProps {
   teas: Teas;
   teaTypes: TeaTypes;
   getUser: GetUser;
+  history: History;
   handleSubmit: (tea: Tea) => void;
+  updateFlash: (arg1: boolean) => void;
+  getTeaList: (arg1: string) => void;
 }
 
 export interface TeaEditorState {
-  teas: [];
-  teaTypes: [];
+  name: string;
+  servings: string;
+  id: string;
+  errors?: [];
+  userID: string;
+  teas?: Teas;
+  teaTypes?: TeaTypes;
+  teaType: string;
+  getUser?: GetUser;
+  flash: TeaFlash;
+  edit: boolean;
+  handleSubmit?: (tea: Tea) => void;
+  touched: object;
+  brand: string;
 }
 
 export interface TeaProps {

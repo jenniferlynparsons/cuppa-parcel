@@ -1,8 +1,10 @@
+import { History } from "./general-interfaces";
 export type Decoded = object;
 
 export type GetUser = () => void;
 
 export interface User {
+  id?: string;
   name: string;
   email: string;
 }
@@ -10,10 +12,6 @@ export interface User {
 export interface Auth {
   isAuthenticated: boolean;
   user: User;
-}
-
-export interface History {
-  push: (path: string) => void;
 }
 
 export interface UserProps {

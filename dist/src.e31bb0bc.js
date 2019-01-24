@@ -43891,7 +43891,7 @@ function (_react_1$default$Comp) {
       var filterTeas = this.props.teas.filter(function (t) {
         return t.id === teaProps.match.params.id;
       });
-      var currentTea = Object.assign({}, filterTeas[0]); // console.log(currentTea);
+      var currentTea = Object.assign({}, filterTeas[0]);
 
       if (currentTea.id) {
         this.setState(Object.assign({}, currentTea, {
@@ -44024,7 +44024,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       if (tea.edit === true) {
         dispatch(teaActions_1.editTea(tea));
       } else {
-        // console.log(tea);
         dispatch(teaActions_1.addTea(tea));
       }
     },
@@ -44656,7 +44655,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37303" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40101" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

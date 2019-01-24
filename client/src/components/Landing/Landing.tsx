@@ -27,6 +27,7 @@ class Landing extends Component {
           </p>
           <h4>
             Follow the project on{" "}
+            {/* TODO sort out this weird typescript thing */}
             <a
               href="https://github.com/jenniferlynparsons/cuppa"
               nofollow="true"

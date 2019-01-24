@@ -3,12 +3,22 @@ import React from "react";
 import uuidv4 from "uuid/v4";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { TeaEditorProps, TeaErrors } from "../../../interfaces/tea-interfaces";
-import { AppState, UserId } from "../../../interfaces/general-interfaces";
+import {
+  Tea,
+  TeaEditorProps,
+  TeaErrors,
+  TeaEditorState
+} from "../../../interfaces/tea-interfaces";
+import {
+  AppState,
+  UserIdObj,
+  FlashStatus,
+  History
+} from "../../../interfaces/general-interfaces";
 import { addTea, editTea, getTeas } from "../../../actions/teaActions";
 import { editTeaFlash } from "../../../actions/flashActions";
 
-export class TeaEditor extends React.Component<TeaEditorProps, ""> {
+export class TeaEditor extends React.Component<TeaEditorProps, TeaEditorState> {
   state = {
     flash: {
       name: "",
@@ -121,12 +131,11 @@ export class TeaEditor extends React.Component<TeaEditorProps, ""> {
     this.props.getTeaList(this.props.userID);
   }
 
-  componentWillReceiveProps(teaProps) {
+  componentWillReceiveProps(teaProps: Tea) {
     const filterTeas = this.props.teas.filter(
       t => t.id === teaProps.match.params.id
     );
     const currentTea = { ...filterTeas[0] };
-    // console.log(currentTea);
     if (currentTea.id) {
       this.setState({ ...currentTea, edit: true });
     } else {
@@ -257,7 +266,7 @@ export class TeaEditor extends React.Component<TeaEditorProps, ""> {
   }
 }
 
-const mapStateToProps = (state: TeaEditorState) => ({
+const mapStateToProps = (state: AppState) => ({
   teas: state.teas,
   teaTypes: state.teaTypes,
   userID: state.auth.user.id
@@ -268,14 +277,13 @@ const mapDispatchToProps = (dispatch: any) => ({
     if (tea.edit === true) {
       dispatch(editTea(tea));
     } else {
-      // console.log(tea);
       dispatch(addTea(tea));
     }
   },
-  getTeaList: userID => {
+  getTeaList: (userID: UserIdObj) => {
     dispatch(getTeas(userID));
   },
-  updateFlash: status => {
+  updateFlash: (status: FlashStatus) => {
     dispatch(editTeaFlash(status));
   }
 });
