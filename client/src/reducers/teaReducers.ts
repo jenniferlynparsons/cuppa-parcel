@@ -1,8 +1,8 @@
 import { Tea } from "../interfaces/tea-interfaces";
-import { Action } from "../interfaces/general-interfaces";
+import { TeaAction } from "../interfaces/tea-interfaces";
 import { Set, Map } from "immutable";
 
-export default (state: Tea[] = [], action: Action): Tea[] => {
+export default (state: Tea[] = [], action: TeaAction) => {
   switch (action.type) {
     case "ADD_TEA":
       return [...state, action.payload];
@@ -12,6 +12,7 @@ export default (state: Tea[] = [], action: Action): Tea[] => {
       return state.map(t => (t.id === action.payload.id ? action.payload : t));
     case "GET_TEAS":
       // I wasn't planning on using immutable but it solved my problem here really well
+      // TODO figure out this TS error
       return Set([...state, ...action.payload])
         .map(Map)
         .toJS();

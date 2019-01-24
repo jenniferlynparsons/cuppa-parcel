@@ -1,6 +1,14 @@
 // import { RouteComponentProps } from "@reach/router";
 import { GetUser } from "./auth-interfaces";
 import { Match, UpdateFlash, UserId } from "./general-interfaces";
+
+export interface TeaAction {
+  type: string;
+  payload: {
+    id: string;
+  };
+}
+
 export interface Tea {
   id: string;
   name?: string;
@@ -8,7 +16,7 @@ export interface Tea {
   teaType?: string;
   servings?: number;
   updated?: boolean;
-  match?: Match;
+  match: Match;
 }
 
 export type TeaTypes = string[];
@@ -27,7 +35,7 @@ export interface TeaListProps {
 
 export interface TeaDetailsProps {
   tea: Tea;
-  flash: string;
+  flash?: string;
   handleDelete: (tea: Tea) => void;
   onClick: (
     e: React.MouseEvent<HTMLElement, MouseEvent>,

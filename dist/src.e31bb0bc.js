@@ -30777,12 +30777,14 @@ Object.defineProperty(exports, "__esModule", {
 var axios_1 = __importDefault(require("axios"));
 
 var setAuthToken = function setAuthToken(token) {
+  var authHeader = "Authorization";
+
   if (token) {
     // Apply authorization token to every request if logged in
-    axios_1.default.defaults.headers.common["Authorization"] = token;
+    axios_1.default.defaults.headers.common[authHeader] = token;
   } else {
     // Delete auth header
-    delete axios_1.default.defaults.headers.common["Authorization"];
+    delete axios_1.default.defaults.headers.common[authHeader];
   }
 };
 
@@ -36278,11 +36280,17 @@ module.exports = isEmpty
 },{}],"reducers/authReducers.ts":[function(require,module,exports) {
 "use strict";
 
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var isEmpty = require("is-empty");
+var is_empty_1 = __importDefault(require("is-empty"));
 
 var initialState = {
   isAuthenticated: false,
@@ -36298,7 +36306,7 @@ function default_1() {
     case "SUCCESS":
     case "SET_CURRENT_USER":
       return Object.assign({}, state, {
-        isAuthenticated: !isEmpty(action.payload),
+        isAuthenticated: !is_empty_1.default(action.payload),
         user: action.payload
       });
 
@@ -42201,6 +42209,7 @@ exports.default = function () {
 
     case "GET_TEAS":
       // I wasn't planning on using immutable but it solved my problem here really well
+      // TODO figure out this TS error
       return immutable_1.Set([].concat(_toConsumableArray(state), _toConsumableArray(action.payload))).map(immutable_1.Map).toJS();
   }
 
@@ -43098,7 +43107,7 @@ function (_react_1$Component) {
         })
       }), react_1.default.createElement("span", {
         className: "help is-danger"
-      }, errors.password, errors.passwordincorrect)), react_1.default.createElement("div", {
+      }, this.state.errors.password, this.state.errors.passwordincorrect)), react_1.default.createElement("div", {
         className: "field"
       }, react_1.default.createElement("div", {
         className: "control"
@@ -43174,7 +43183,8 @@ var react_1 = __importDefault(require("react"));
 
 var react_router_dom_1 = require("react-router-dom");
 
-var react_redux_1 = require("react-redux");
+var react_redux_1 = require("react-redux"); // TODO figure out what's up with these type definitions
+
 
 var PrivateRoute = function PrivateRoute(_a) {
   var Component = _a.component,
@@ -44399,7 +44409,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       dispatch(flashActions_1.editTeaFlash(status));
     }
   };
-};
+}; // TODO figure out the typings mismatch
+
 
 exports.default = react_router_dom_1.withRouter(react_redux_1.connect(mapStateToProps, mapDispatchToProps)(TeaDetailsContainer));
 },{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../../actions/teaActions":"actions/teaActions.ts","./TeaDetails":"components/Tea/TeaDetails/TeaDetails.tsx","../../../actions/flashActions":"actions/flashActions.ts"}],"components/Tea/TeaDetails/index.ts":[function(require,module,exports) {
@@ -44645,7 +44656,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36721" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37303" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

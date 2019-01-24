@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/jenniferlynparsons/cuppa#readme",
   "dependencies": {
+    "@types/redux-devtools": "^3.0.45",
+    "@types/redux-devtools-extension": "^2.13.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",

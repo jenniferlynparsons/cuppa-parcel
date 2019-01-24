@@ -23,10 +23,18 @@ export interface AppState {
   errors: UserErrors;
   handleSubmit: (userData: UserState) => void;
   flash?: FlashStatus;
+  history: object;
 }
-export interface Action {
+export interface AuthAction {
   type: string;
-  payload: object;
+  payload: {
+    id: string;
+  };
+}
+
+export interface FlashAction {
+  type: string;
+  payload: boolean;
 }
 
 export interface History {

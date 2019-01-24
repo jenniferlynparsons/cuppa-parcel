@@ -94,8 +94,8 @@ class Login extends Component<UserProps, UserState> {
               })}
             />
             <span className="help is-danger">
-              {errors.password}
-              {errors.passwordincorrect}
+              {this.state.errors.password}
+              {this.state.errors.passwordincorrect}
             </span>
           </div>
           <div className="field">

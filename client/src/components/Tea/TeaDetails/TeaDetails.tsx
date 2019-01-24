@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
-import React, { SFC } from "react";
+import React from "react";
 import { TeaDetailsProps } from "../../../interfaces/tea-interfaces";
 import { Link } from "react-router-dom";
 
-export const TeaDetails: SFC<TeaDetailsProps> = props => {
+export const TeaDetails = (props: TeaDetailsProps) => {
   return (
     <div className="container content">
       {props.flash ? (
         <div className="notification is-success">
-          <button className="delete" onClick={e => props.onClick(e false)} />
+          <button className="delete" onClick={e => props.onClick(e, false)} />
           {props.tea.name} has been succesfully updated.
         </div>
       ) : (

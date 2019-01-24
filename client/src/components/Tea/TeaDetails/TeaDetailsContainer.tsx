@@ -8,7 +8,7 @@ import { deleteTea } from "../../../actions/teaActions";
 import { TeaDetails } from "./TeaDetails";
 import { editTeaFlash } from "../../../actions/flashActions";
 
-class TeaDetailsContainer extends Component<TeaDetailsProps, {}> {
+class TeaDetailsContainer extends Component<TeaDetailsProps, AppState> {
   clickHandler = (
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     status: FlashStatus
@@ -43,6 +43,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   }
 });
 
+// TODO figure out the typings mismatch
 export default withRouter(
   connect(
     mapStateToProps,

@@ -1,4 +1,6 @@
-const isEmpty = require("is-empty");
+import { AuthAction } from "../interfaces/general-interfaces";
+
+import isEmpty from "is-empty";
 
 const initialState = {
   isAuthenticated: false,
@@ -6,7 +8,7 @@ const initialState = {
   loading: false
 };
 
-export default function(state = initialState, action) {
+export default function(state = initialState, action: AuthAction) {
   switch (action.type) {
     case "SUCCESS":
     case "SET_CURRENT_USER":
