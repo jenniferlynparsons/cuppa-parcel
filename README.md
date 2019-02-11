@@ -2,7 +2,7 @@
 
 > A full MERN stack tea collection tracker
 
-Cuppa is built on React with Redux, Node using Express and Mongoose, and connected to a MongoDB database. It also uses JWT tokens for authentication and user management. Scripts are built using Parcel instead of Webpack.
+Cuppa is built on React with Redux, Node using Express and Mongoose, and connected to a MongoDB database. It also uses JWT tokens for authentication and user management. Scripts are built using Parcel instead of Webpack. This is not a Create-React-App-based project.
 
 ## Table of Contents
 
@@ -10,7 +10,8 @@ Cuppa is built on React with Redux, Node using Express and Mongoose, and connect
   - [Table of Contents](#table-of-contents)
   - [Background](#background)
   - [Install](#install)
-  - [Usage](#usage)
+  - [Local Usage](#local-usage)
+  - [Heroku Usage](#heroku-usage)
   - [API](#api)
   - [Maintainers](#maintainers)
   - [Contributing](#contributing)
@@ -25,9 +26,16 @@ After downloading the repo, run `npm install` in both the root and client folder
 
 You'll need to create a MongoDB database (I used [mlab.com](mlab.com)). Once that's complete, make a copy of the `.env.default` file in the root, rename it `.env` and paste in the correct uri for your database.
 
-## Usage
+## Local Usage
 
-To run locally, use `npm run dev` to launch both the server and front end apps.
+- Use `npm run dev` to launch both the server and front end apps.
+- On a successful build, you can then open `http://localhost:1234` to view the app.
+
+## Heroku Usage
+
+- Use `npm run build` to create a static build.
+- Add `MONGOURI` and the url for the mongoDB database to the Config Vars on Heroku's dashboard.
+- [Deploy to Heroku](https://devcenter.heroku.com/articles/git)
 
 ## API
 TODO: fill in this information
@@ -38,7 +46,6 @@ TODO: fill in this information
 
 ## Contributing
 This is a personal project, so I'm unlikely to accept PRs but you're welcome to fork the project.
-
 
 Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 
