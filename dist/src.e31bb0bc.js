@@ -33908,6 +33908,12 @@ exports.setUserLoading = function () {
   return {
     type: "USER_LOADING"
   };
+};
+
+exports.resetStateOnLogout = function () {
+  return {
+    type: "USER_LOGOUT"
+  };
 }; // Log user out
 
 
@@ -33918,7 +33924,7 @@ exports.logoutUser = function () {
 
     setAuthToken_1.default(false); // Set current user to empty object {} which will set isAuthenticated to false
 
-    dispatch(exports.setCurrentUser({}));
+    dispatch(exports.resetStateOnLogout());
   };
 };
 },{"../utils/setAuthToken":"utils/setAuthToken.ts","jwt-decode":"../node_modules/jwt-decode/lib/index.js","redux-api-middleware":"../node_modules/redux-api-middleware/lib/index.umd.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
@@ -42249,15 +42255,30 @@ var teaReducers_1 = __importDefault(require("./teaReducers"));
 
 var typesReducer_1 = __importDefault(require("./typesReducer"));
 
-var flashReducer_1 = __importDefault(require("./flashReducer"));
+var flashReducer_1 = __importDefault(require("./flashReducer")); // export default combineReducers({
+//   auth: authReducer,
+//   errors: errorReducer,
+//   teas: teaReducers,
+//   teaTypes: typesReducer,
+//   flash: flashReducer
+// });
 
-exports.default = redux_1.combineReducers({
+
+var appReducer = redux_1.combineReducers({
   auth: authReducers_1.default,
   errors: errorReducers_1.default,
   teas: teaReducers_1.default,
   teaTypes: typesReducer_1.default,
   flash: flashReducer_1.default
 });
+
+exports.rootReducer = function (state, action) {
+  if (action.type === "USER_LOGOUT") {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+};
 },{"redux":"../node_modules/redux/es/redux.js","./authReducers":"reducers/authReducers.ts","./errorReducers":"reducers/errorReducers.ts","./teaReducers":"reducers/teaReducers.ts","./typesReducer":"reducers/typesReducer.ts","./flashReducer":"reducers/flashReducer.ts"}],"store.ts":[function(require,module,exports) {
 "use strict";
 
@@ -42277,11 +42298,11 @@ var redux_api_middleware_1 = require("redux-api-middleware");
 
 var redux_thunk_1 = __importDefault(require("redux-thunk"));
 
-var reducers_1 = __importDefault(require("./reducers"));
+var reducers_1 = require("./reducers");
 
 var initialState = {};
 var middleware = [redux_api_middleware_1.apiMiddleware, redux_thunk_1.default];
-var store = redux_1.createStore(reducers_1.default, initialState, redux_1.compose(redux_1.applyMiddleware.apply(redux_1, middleware), window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : function (f) {
+var store = redux_1.createStore(reducers_1.rootReducer, initialState, redux_1.compose(redux_1.applyMiddleware.apply(redux_1, middleware), window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : function (f) {
   return f;
 }));
 exports.default = store;
@@ -44636,7 +44657,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46501" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45617" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

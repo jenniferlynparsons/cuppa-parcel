@@ -104,6 +104,11 @@ export const setUserLoading = () => {
   };
 };
 
+export const resetStateOnLogout = () => {
+  return {
+    type: "USER_LOGOUT"
+  };
+};
 // Log user out
 export const logoutUser = () => (dispatch: any) => {
   // Remove token from local storage
@@ -111,5 +116,5 @@ export const logoutUser = () => (dispatch: any) => {
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
-  dispatch(setCurrentUser({}));
+  dispatch(resetStateOnLogout());
 };

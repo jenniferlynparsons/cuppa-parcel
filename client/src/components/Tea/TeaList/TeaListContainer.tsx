@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { TeaListProps, Tea } from "../../../interfaces/tea-interfaces";
 import { AppState, UserId } from "../../../interfaces/general-interfaces";
 import { deleteTea, getTeas } from "../../../actions/teaActions";
-import { getCurrentUser } from "../../../actions/authActions";
 import TeaList from "./TeaList";
 
 export class TeaListContainer extends React.Component<TeaListProps, AppState> {
