@@ -33713,8 +33713,6 @@ var process = require("process");
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
   return new (P || (P = Promise))(function (resolve, reject) {
     function fulfilled(value) {
@@ -33753,8 +33751,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var axios_1 = __importDefault(require("axios"));
-
 var setAuthToken_1 = __importDefault(require("../utils/setAuthToken"));
 
 var jwt_decode_1 = __importDefault(require("jwt-decode"));
@@ -33780,37 +33776,32 @@ function loginAction(userData) {
     endpoint: "".concat(API_SERVER, "/api/users/login"),
     method: "POST",
     types: ["REQUEST", {
-      type: "SUCCESS",
+      type: "SET_CURRENT_USER",
       payload: function payload(_action, _state, res) {
         return __awaiter(_this, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee() {
-          var _res2, token, decoded;
+          var _res, token, decoded;
 
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  console.log(_typeof(res));
-                  _context.next = 3;
+                  _context.next = 2;
                   return res.json();
 
-                case 3:
+                case 2:
                   res = _context.sent;
                   // Set token to localStorage
-                  _res2 = res, token = _res2.token;
+                  _res = res, token = _res.token;
                   localStorage.setItem("jwtToken", token); // Set token to Auth header
 
                   setAuthToken_1.default(token); // Decode token to get user data
 
-                  decoded = jwt_decode_1.default(token); // Set current user
+                  decoded = jwt_decode_1.default(token);
+                  console.log(decoded); // Set current user
 
-                  return _context.abrupt("return", function (dispatch) {
-                    return {
-                      type: "SET_CURRENT_USER",
-                      payload: decoded
-                    };
-                  });
+                  return _context.abrupt("return", decoded);
 
                 case 9:
                 case "end":
@@ -33833,24 +33824,41 @@ exports.loginAction = loginAction; // Register User
 function registerUser(userData, history) {
   var _this2 = this;
 
+  console.log(userData);
   return _defineProperty({}, redux_api_middleware_1.RSAA, {
     endpoint: "".concat(API_SERVER, "/api/users/register"),
     method: "POST",
     types: ["REQUEST", {
-      type: "SUCCESS",
-      payload: function payload(_action, _state, _res) {
+      type: "SET_CURRENT_USER",
+      payload: function payload(_action, _state, res) {
         return __awaiter(_this2, void 0, void 0,
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee2() {
-          var arg;
+          var arg, _res2, token, decoded;
+
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
                   arg = "/login";
                   history.push(arg);
+                  console.log(res);
+                  _context2.next = 5;
+                  return res.json();
 
-                case 2:
+                case 5:
+                  res = _context2.sent;
+                  // Set token to localStorage
+                  _res2 = res, token = _res2.token;
+                  localStorage.setItem("jwtToken", token); // Set token to Auth header
+
+                  setAuthToken_1.default(token); // Decode token to get user data
+
+                  decoded = jwt_decode_1.default(token); // Set current user
+
+                  return _context2.abrupt("return", decoded);
+
+                case 11:
                 case "end":
                   return _context2.stop();
               }
@@ -33893,24 +33901,6 @@ exports.setCurrentUser = function (decoded) {
     type: "SET_CURRENT_USER",
     payload: decoded
   };
-}; // Get current user
-
-
-exports.getCurrentUser = function () {
-  return function (dispatch) {
-    dispatch(exports.setUserLoading());
-    axios_1.default.get("/api/user/currentuser").then(function (res) {
-      return dispatch({
-        type: "GET_CURRENT_USER",
-        payload: res.data
-      });
-    }).catch(function (err) {
-      return dispatch({
-        type: "GET_ERRORS",
-        payload: err.response.data
-      });
-    });
-  };
 }; // User loading
 
 
@@ -33931,7 +33921,7 @@ exports.logoutUser = function () {
     dispatch(exports.setCurrentUser({}));
   };
 };
-},{"axios":"../node_modules/axios/index.js","../utils/setAuthToken":"utils/setAuthToken.ts","jwt-decode":"../node_modules/jwt-decode/lib/index.js","redux-api-middleware":"../node_modules/redux-api-middleware/lib/index.umd.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
+},{"../utils/setAuthToken":"utils/setAuthToken.ts","jwt-decode":"../node_modules/jwt-decode/lib/index.js","redux-api-middleware":"../node_modules/redux-api-middleware/lib/index.umd.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36303,7 +36293,6 @@ function default_1() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case "SUCCESS":
     case "SET_CURRENT_USER":
       return Object.assign({}, state, {
         isAuthenticated: !is_empty_1.default(action.payload),
@@ -36313,13 +36302,6 @@ function default_1() {
     case "USER_LOADING":
       return Object.assign({}, state, {
         loading: true
-      });
-
-    case "GET_CURRENT_USER":
-      // console.log(action.payload);
-      return Object.assign({}, state, {
-        profile: action.payload,
-        loading: false
       });
 
     default:
@@ -43648,6 +43630,7 @@ exports.deleteTea = deleteTea; // Get Teas
 function getTeas(listOwner) {
   var _this4 = this;
 
+  console.log(listOwner);
   return _defineProperty({}, redux_api_middleware_1.RSAA, {
     endpoint: "".concat(API_SERVER, "/api/teas/teasList"),
     method: "POST",
@@ -43666,9 +43649,10 @@ function getTeas(listOwner) {
 
                 case 2:
                   res = _context7.sent;
+                  console.log(res);
                   return _context7.abrupt("return", res);
 
-                case 4:
+                case 5:
                 case "end":
                   return _context7.stop();
               }
@@ -44179,8 +44163,6 @@ var react_redux_1 = require("react-redux");
 
 var teaActions_1 = require("../../../actions/teaActions");
 
-var authActions_1 = require("../../../actions/authActions");
-
 var TeaList_1 = __importDefault(require("./TeaList"));
 
 var TeaListContainer =
@@ -44205,7 +44187,6 @@ function (_react_1$default$Comp) {
   _createClass(TeaListContainer, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.getUser();
       this.props.getTeaList(this.props.userID);
     }
   }, {
@@ -44244,16 +44225,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       dispatch(teaActions_1.getTeas({
         listOwner: userID
       }));
-    },
-    getUser: function getUser() {
-      console.log("getUser");
-      dispatch(authActions_1.getCurrentUser());
     }
   };
 };
 
 exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(TeaListContainer);
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../../actions/teaActions":"actions/teaActions.ts","../../../actions/authActions":"actions/authActions.ts","./TeaList":"components/Tea/TeaList/TeaList.tsx"}],"components/Tea/TeaList/index.ts":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../../actions/teaActions":"actions/teaActions.ts","./TeaList":"components/Tea/TeaList/TeaList.tsx"}],"components/Tea/TeaList/index.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -44659,7 +44636,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33549" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46501" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

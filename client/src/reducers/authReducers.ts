@@ -10,7 +10,6 @@ const initialState = {
 
 export default function(state = initialState, action: AuthAction) {
   switch (action.type) {
-    case "SUCCESS":
     case "SET_CURRENT_USER":
       return {
         ...state,
@@ -21,13 +20,6 @@ export default function(state = initialState, action: AuthAction) {
       return {
         ...state,
         loading: true
-      };
-    case "GET_CURRENT_USER":
-      // console.log(action.payload);
-      return {
-        ...state,
-        profile: action.payload,
-        loading: false
       };
     default:
       return state;

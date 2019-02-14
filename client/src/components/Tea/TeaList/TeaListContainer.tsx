@@ -12,7 +12,6 @@ export class TeaListContainer extends React.Component<TeaListProps, AppState> {
   };
 
   componentDidMount() {
-    this.props.getUser();
     this.props.getTeaList(this.props.userID);
   }
 
@@ -42,10 +41,6 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   getTeaList: (userID: UserId) => {
     dispatch(getTeas({ listOwner: userID }));
-  },
-  getUser: () => {
-    console.log("getUser");
-    dispatch(getCurrentUser());
   }
 });
 

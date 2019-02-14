@@ -82,7 +82,7 @@ router.get('/tea', (req, res) => {
 
 
 router.post('/teasList', function(req, res) {
-  Tea.find({userID: req.body.userID}, function(err, teas) {
+  Tea.find({userID: req.body.listOwner}, function(err, teas) {
     var teaMap = [];
     var index = 0
     teas.forEach(function(tea) {
