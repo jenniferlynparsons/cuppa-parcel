@@ -96,6 +96,7 @@ export function deleteTea(tea: Tea) {
 
 // Get Teas
 export function getTeas(listOwner: UserIdObj) {
+  console.log(listOwner);
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/teas/teasList`,
@@ -106,6 +107,7 @@ export function getTeas(listOwner: UserIdObj) {
           type: "GET_TEAS",
           payload: async (_action: any, _state: any, res: APIResponse) => {
             res = await res.json();
+            console.log(res);
             return res;
           }
         },

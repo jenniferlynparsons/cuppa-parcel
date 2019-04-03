@@ -42,12 +42,39 @@ router.post("/register", (req, res) => {
           newUser.password = hash;
           newUser
             .save()
-            .then(user => res.json(user))
+            .then(user => {
+              // res.json(user)
+              const payload = {
+                id: user.id,
+                name: user.name
+              };
+
+              // Sign token
+              jwt.sign(
+                payload,
+                "secret",
+                {
+                  expiresIn: 31556926 // 1 year in seconds
+                },
+                (err, token) => {
+                  res.json({
+                    success: true,
+                    token: "Bearer " + token
+                  });
+                }
+              );
+
+            })
             .catch(err => console.log(err));
         });
       });
+
+
+
+
     }
   });
+
 });
 
 // @route POST api/users/login

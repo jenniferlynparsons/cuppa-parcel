@@ -1,5 +1,4 @@
-import { Tea } from "../interfaces/tea-interfaces";
-import { TeaAction } from "../interfaces/tea-interfaces";
+import { Tea, TeaAction } from "../interfaces/tea-interfaces";
 import { Set, Map } from "immutable";
 
 export default (state: Tea[] = [], action: TeaAction) => {

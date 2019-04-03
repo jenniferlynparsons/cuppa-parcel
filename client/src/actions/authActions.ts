@@ -25,9 +25,8 @@ export function loginAction(userData: UserState) {
       types: [
         "REQUEST",
         {
-          type: "SUCCESS",
+          type: "SET_CURRENT_USER",
           payload: async (_action: any, _state: any, res: APIResponse) => {
-            console.log(typeof res);
             res = await res.json();
             // Set token to localStorage
             const { token } = res;
@@ -36,13 +35,9 @@ export function loginAction(userData: UserState) {
             setAuthToken(token);
             // Decode token to get user data
             const decoded = jwt_decode(token);
+            console.log(decoded);
             // Set current user
-            return (dispatch: any) => {
-              return {
-                type: "SET_CURRENT_USER",
-                payload: decoded
-              };
-            };
+            return decoded;
           }
         },
         "FAILURE"
@@ -55,6 +50,7 @@ export function loginAction(userData: UserState) {
 
 // Register User
 export function registerUser(userData: UserState, history: History) {
+  console.log(userData);
   return {
     [RSAA]: {
       endpoint: `${API_SERVER}/api/users/register`,
@@ -62,10 +58,22 @@ export function registerUser(userData: UserState, history: History) {
       types: [
         "REQUEST",
         {
-          type: "SUCCESS",
-          payload: async (_action: any, _state: any, _res: APIResponse) => {
+          type: "SET_CURRENT_USER",
+          payload: async (_action: any, _state: any, res: APIResponse) => {
             const arg = "/login";
             history.push(arg);
+            console.log(res);
+            res = await res.json();
+            // Set token to localStorage
+            const { token } = res;
+            localStorage.setItem("jwtToken", token);
+            // Set token to Auth header
+            setAuthToken(token);
+            // Decode token to get user data
+            const decoded = jwt_decode(token);
+
+            // Set current user
+            return decoded;
           }
         },
         {
@@ -89,25 +97,6 @@ export const setCurrentUser = (decoded: Decoded) => {
   };
 };
 
-// Get current user
-export const getCurrentUser = () => (dispatch: any) => {
-  dispatch(setUserLoading());
-  axios
-    .get("/api/user/currentuser")
-    .then(res =>
-      dispatch({
-        type: "GET_CURRENT_USER",
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: "GET_ERRORS",
-        payload: err.response.data
-      })
-    );
-};
-
 // User loading
 export const setUserLoading = () => {
   return {
@@ -115,6 +104,11 @@ export const setUserLoading = () => {
   };
 };
 
+export const resetStateOnLogout = () => {
+  return {
+    type: "USER_LOGOUT"
+  };
+};
 // Log user out
 export const logoutUser = () => (dispatch: any) => {
   // Remove token from local storage
@@ -122,5 +116,5 @@ export const logoutUser = () => (dispatch: any) => {
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
-  dispatch(setCurrentUser({}));
+  dispatch(resetStateOnLogout());
 };
